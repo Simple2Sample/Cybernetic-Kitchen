@@ -1,0 +1,653 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - NP-komplette problemer</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke49">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_npc/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - NP-komplette problemer</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_npc/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_npc/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_npc/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 25.11.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro>1. Hvilke av disse utsagnene om klassene av problemer er sanne? (&#8838; betyr subsett, i enkelte browsere kommer dette opp som en firkant)<br />
+</intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>P &#8838; NP</tekst> <i>(1.8 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>P kan løses i polynomisk tid, dermed kan det også sjekkes for korrekthet i polynomisk tid</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>P &#8838; NPC</tekst> <i>(1.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Hvis P er i NPC betyr det at NP kan reduseres til P i polynomisk tid - og det vet vi som kjent ikke om er sant</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>NP &#8838; NPC</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette ville medført P=NP (husk P er i NP)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>NPC &#8838; NP</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Et krav for å være med i NPC er at problemet ligger i NP.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>e) <tekst>Hvis vi kan vise at et problem i NP kan løses i polynomisk tid må P=NP</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Denne egenskapen gjelder kun for problemer i NPC</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>f) <tekst>Klassen co-NP består av de avgjørelsesproblemene hvor et <i>nei</i>-svar kan verifiseres i polynomisk tid. Er NP=co-NP?</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette vet vi ikke, og er et åpent spørsmål på lik linje med P vs NP</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1g -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>g) <tekst>Vi vet at P=co-P. Hvis NP&#8800;co-NP må P&#8800;NP</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Hvis NP&#8800;co-NP må det finnes problemer i en av dem (NP eller co-NP) slik at komplementet ikke også ligger der. Slike problemer kan ikke samtidig være i P siden vi vet at P=co-P.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1h -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>h) <tekst>PRIMES er problemene som spør om et tall er et primtall eller ikke. Er PRIMES i NP&#8745;co-NP?</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>sant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>usant <BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>uvisst <BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>PRIMES er faktisk også i P, noe som ble vist i 2002.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>Du får oppgitt problemet X, og du ønsker å finne ut hvorvidt dette problemet kan løses i polynomisk tid.<BR><BR>
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Først prøver du å sammenligne det med problemet Y, som du vet du kan løse i polynomisk tid.</tekst> <i>(9 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>Hvis du kan transformere alle instanser x av X til tilsvarende instanser y av Y i polynomisk tid, og vet at løsningen på y alltid er løsningen på x, kan du si at X tilhører klassen P.<BR><BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>Hvis du kan transformere noen instanser x av X til tilsvarende instanser y av Y i polynomisk tid, og vet at løsningen på y alltid er løsningen på x, kan du si at X tilhører klassen P.<BR><BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>Hvis du ikke kan transformere noen instanser av X til instanser av Y i polynomisk tid, kan du si at X tilhører klassen NPC.</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Deretter prøver du å sammenligne X med problemet Z, som du vet er NP-komplett.</tekst> <i>(9 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>Hvis du i polynomisk tid kan transformere alle instanser x av X til  instanser z av Z, og du vet at løsningen på z alltid er løsningen på x, kan du si at X tilhører klassen NPC.<BR><BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>Hvis du i polynomisk tid kan transformere alle instanser z av Z til  instanser x av X, og du vet at løsningen på x alltid er løsningen på z, kan du si at X tilhører klassen NPC.<BR><BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>Hvis du ikke kan transformere noen instanser av Z til instanser av X, kan du si at X tilhører klassen P.</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro>Problemet F(G, k) er definert som følger:<br />Gitt en urettet graf G=(V,E), finn ut om nodene i G kan farges med k farger slik at nabonoder aldri gis samme farge. Det er kjent at problemet F(G, 3) er NP-komplett. 
+
+</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Tilhører F(G, 3) klassen NP?</tekst> <i>(9 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Ja, fordi F(G, 3) er NP-hard.<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Ja, fordi F(G, 3) kan sjekkes i polynomisk tid.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Nei, da man kan løse F(G, 3) i polynomisk tid.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Nei, hvis F(G, 3) tilhører klassen NP har man løst et NP-komplett problem i polynomisk tid, som jo er ganske utenkelig.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Er F(G, 2) NP-komplett?</tekst> <i>(9 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Ja, fordi F(G, 3) er NP-komplett.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>Ja, fordi F(G, 2) kan sjekkes i polynomisk tid.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>Nei, da man kan løse F(G, 2) i polynomisk tid.<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="4"  disabled="disabled" /> <alt>Det er usikkert (ingen har klart å bevise det).<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Selv om dette er som to-farge-problemet, som vi kan løse i polynomisk tid, vet vi ikke om P!=NPC. For alt vi vet er alle problemene i pensum NP-komplette</lf></td>
+</tr>
+</table><p><intro>Anta et generelt problem X(D, k), hvor D er en datamengde og k er et problemparameter. Vi vet at X(D, 3) er NP-komplett.
+</intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Kan vi utlede at X(D, 2) kan løses i polynomisk tid?</tekst> <i>(9 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>Ja, hvis ikke kunne ikke X(D, 3) vært NPC.<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>Nei, det kan vi ikke utlede generelt.<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>Det er usikkert.<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nei, vi vet fint lite om X(D,2)</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Dersom et gitt problem i sin generelle form er NP-komplett, har det ingen hensikt å prøve å løse dette når problemets størrelse øker over en viss terskel.</tekst> <i>(5.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>Sann<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>Usann<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Den spesielle formen på datasettet kan være slikt at det kan løses i polynomisk tid.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Med dynamisk programmering kan man løse det diskrete(0-1) ryggsekk problemet i O(nW) tid der n er antall gjenstander og W er kapasiteten til sekken. Da kan man si at løsningen er polynomisk.</tekst> <i>(5.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>Sann<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>Usann<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dersom man øker nøyaktigheten til W med ett siffer vil kjøretiden mangedobles.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Anta at algoritmen A løser et NP-komplett problem Q i polynomisk tid.<BR> Er det mulig at A kan være en del av en polynomisk løsningen på et problem R?</tekst> <i>(7.2 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>Ja<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>Nei, da NP komplette problem ikke kan løses i polynomisk tid<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>Nei, utsagnet gir ingen mening.</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 5</h2><p><intro>Du står overfor de problemene A,B,C. Alle tre i mengden NP. Du vet at A er i mengden P og B er i mengden NPC. I denne oppgaven er det underforstått at med reduksjon menes reduksjon i polynomisk tid.</intro></p>
+<!-- DELOPPGAVE 5a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Hvilken av følgende reduksjoner viser at C er i P?</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>Reduser A til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="2"  disabled="disabled" /> <alt>Reduser A til C.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>Reduser B til A.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>Reduser B til C.<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>Reduser C til A.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="6"  disabled="disabled" /> <alt>Reduser C til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="7"  disabled="disabled" /> <alt>Umulig å avgjøre.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Hvis C kan reduseres til A i polynomisk tid, og A kan løses i polynomisk tid vil C også kunne løses i polynomsk tid.</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 5b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hvilken av følgende reduksjoner viser at C er i NPC?</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>Reduser A til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>Reduser A til C.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="3"  disabled="disabled" /> <alt>Reduser B til A.<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="4"  disabled="disabled" /> <alt>Reduser B til C.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="5"  disabled="disabled" /> <alt>Reduser C til A.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="6"  disabled="disabled" /> <alt>Reduser C til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="7"  disabled="disabled" /> <alt>Umulig å avgjøre.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Et "decision"-problem D er NPC hvis D er i NP og et hvert problem i NP kan reduseres til D i polynomisk tid. Så hvis vi finner et NPC-problem som kan reduseres i polynomisk tid til D er vi ferdige. (Da kan alle NP-problemer reduseres i polynomisk tid til et problem som kan reduseres i polynomisk tid til D. Ergo kan alle NP-problemer reduseres i polynomisk tid til D)</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 5c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Hvilken av følgende reduksjoner viser at P=NP?</tekst> <i>(3.6 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar19"
+								value="1"  disabled="disabled" /> <alt>Reduser A til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>Reduser A til C.<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>Reduser B til A.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="4"  disabled="disabled" /> <alt>Reduser B til C.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>Reduser C til A.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="6"  disabled="disabled" /> <alt>Reduser C til B.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="7"  disabled="disabled" /> <alt>Umulig å avgjøre.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Hvis et NPC-problem kan reduseres til et P i polynomisk tid, vil alle NP-problemer kunne reduseres til P i polynomisk tid og ergo P=NP</lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

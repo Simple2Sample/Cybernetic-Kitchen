@@ -1,0 +1,565 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Trær</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_traer/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Trær</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_traer/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_traer/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_traer/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 16.09.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Bredde-først-søk i et tre implementeres enklest ved hjelp av rekursjon?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>BFS krever at en bruker en FIFO-kø (First-in-first-out). DFS derimot kan implementeres svært enkelt vha rekursjon - se LF til prog.oppg. </lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Dybde-først-søk i et tre implementeres enklest ved hjelp av rekursjon?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Rekursivt DFS er svært enkelt å implementere. Generelt er rekursiv implementasjon enklare og meir elegant, medan iterativ ofte gir lågare kjøretid.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Et tre er en urettet sammenhengende asyklisk graf (undirected connected acyclic graph)?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette er selve definisjonen på et tre. Se Cormen Appendix B.5, eller Kleinberg s. 77</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hvor mange kanter har et binærtre med n noder?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>n</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>n + 1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="4"  checked="checked" disabled="disabled" /> <alt>n - 1</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Hvis man starter i rotnoden, så finnes det én "innkant" til de resterende n-1 nodene.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Anta G er en urettet sammenhengende asyklisk graf og vi legger til en ny kant. Hvilket av de følgende utsagnene er korrekt?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>G er fortsatt en urettet sammenhengende asyklisk graf<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  checked="checked" disabled="disabled" /> <alt>G er nå en urettet sammenhengende syklisk graf<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>G er nå et tre<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>Ingen av utsagnene ovenfor er korrekte</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Siden grafen er sammenhengende, vil det finnes en vei fra enhver node til en annen. Uansett hvilke to noder vi nå legger til en kant mellom, vil vi få en sykel ved å følge den opprinnelige veien fra den ene noden til den andre, og deretter følge den nye kanten tilbake igjen.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro><img src= "http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/tre_binaert.gif"  hspace="10" vspace="10" border="0"><br>I bildet ovenfor er det tegnet et binært søke-tre.
+<br><br>Nedenfor er det listet opp fire ulike måter å traverser treet på.<br><br> 
+1 - 10, 6, 3, 2, 1, 4, 5, 8, 7, 9, 13, 11, 12, 18, 15, 14, 16, 17<br>
+2 - 1, 2, 5, 4, 3, 7, 9, 8, 6, 12, 11, 14, 17, 16, 15, 18, 13, 10<br>
+3 - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18<br> 
+4 - 1, 2, 4, 5, 3, 6, 7, 8, 9, 10, 12, 11, 13, 14, 16, 17, 15, 18<br>
+
+
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>I hvilket tilfelle er traverseringen en postorder traversering?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="2"  checked="checked" disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Ved postorder traversering vil en node først kalle opp noden som er dens venstrbein og be den skrive ut verdiene på seg selv og nedover i treet. Deretter vi den kalle høyrebeinet sitt på samme måte. Tilslutt vil den skrive ut sin egen verdi. Dermed stemmer alternativ 2.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>I hvilket tilfelle er traverseringen en preorder traversering?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="1"  checked="checked" disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>I preorder traversering skriver noden som blir kalt først ut sin egen verdi før den kaller traverser() på venstrebeinet og deretter høyrebeinet. Derfor er alternativ 1 riktig.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>I hvilket tilfelle er traverseringen en inorder traversering?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="3"  checked="checked" disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Ved inorder traversering vil noden som blir kalt først kalle traverser på sitt venstrebein. Deretter vil den skrive ut sin egen verdi. Tilslutt vil den kalle traverser på høyrebeinet sitt.</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro>Angi alle svar med den asymptotiske notasjonen som gir mest informasjon. Dvs. de fleste kjøretider omfattes av O(n<sup>n</sup>), siden dette er en veldig høy øvre grense, mens &#920;(f(n)) angir både en øvre og nedre grense og gir derfor mye mer informasjon.
+</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva er søketiden i et perfekt balansert binært søketre?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="1"  checked="checked" disabled="disabled" /> <alt>O(log n)</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>O(n)</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>O(n log n)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Fordi et perfekt balansert k-tre har en høyde på log<sub>k</sub>(n) er antallet noder du må se på øvre begrenset av log<sub>k</sub>(n). Altså blir kjøretiden O(log(n)) (O(log<sub>k</sub>(n)) = O(log<sub>l</sub>(n)) selv om k &#8800; l).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hva er worst-case søketid i et ubalansert binært søketre med n noder?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>O(log n)</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="2"  checked="checked" disabled="disabled" /> <alt>O(n)</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>O(n log n)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>I verste fall er treet i prinsippet blitt en lenket liste. Søketiden i en lenket liste er O(n) fordi vi maksimalt må gå gjennom alle elementene.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Du er gitt et stort perfekt balansert binærtre, og leter etter en spesifikk node. Du vet at denne ligger i en løvnode, men vet ingenting om nøkkelen. Vil det i gjennomsnitt ta kortest tid med BFS (bredde først søk) eller DFS (dybde først søk) å traversere treet til man finner noden?</tekst> <i>(12.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>BFS vil ta kortest tid</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  checked="checked" disabled="disabled" /> <alt>DFS vil ta kortest tid</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>De vil ta like lang tid</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Det er umulig å forutsi hva som er raskest</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Siden BFS vil gå igjennom løvnodene helt til slutt vil den gå igjennom nesten alle nodene hver gang. DFS vil derimot bare gå igjennom rundt halvparten av nodene i snitt før den finner den rette.</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro>Når man kjører DFS på en graf, kan kantene (u, v) man oppdager underveis i søket deles inn i fire kategorier. 
+             <ol>
+                     <li><i>Tre-kant (tree edge):</i> Dette er kanter som leder til uoppdagede noder</li>
+                     <li><i>Bakoverkant (back edge):</i> Dette er kanter som leder tilbake igjen til en node man har sett før, men som ikke er ferdig prosessert</li> 
+                     <li><i>Foroverkant (foreward edge):</i> Dette er kanter som leder til en ferdigprosessert node, hvor man tidligere i søket på annet vis har kommet seg fra u til v. </li>
+                     <li><i>Krysskanter (cross edges):</i> Dette er alle andre kanter, og kjennetegnes ved å lede til en ferdigprosessert node der man ikke tidligere har kommet seg fra u til v.</li>
+</ol>
+Konseptet illustreres i figuren under<br/> 
+(tall angir oppdagelsesrekkefølge under DFS):<br/>
+<img src="http://upload.wikimedia.org/wikipedia/en/5/57/Tree_edges.svg"/>
+<i>Bildekilde: <a href="http://upload.wikimedia.org/wikipedia/en/5/57/Tree_edges.svg">Wikipedia</a></i><br/>
+</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvilke type kanter er det mulig å få når man kjører DFS (dybde-først-søk) på en rettet asyklisk graf (DAG)?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Foroverkanter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>Krysskanter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>Tree edges ("tre-kanter") <br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="4"  checked="checked" disabled="disabled" /> <alt>Alle tre</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Følgende DAG inneholder alle tre typer kanter (gitt på listeform, hvor [x: ->y, ->z] betyr at x har kanter til y og z): [1: ->2, ->3] [2: ->3] [3: ] [4: ->1]. </lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Du kjører dybde-først–søk (DFS) på en urettet graf. Hva slags type kanter er det mulig å oppdage under søket?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Tree edges ("tre-kanter") og bakoverkanter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>Tree edges ("tre-kanter") og foroverkanter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>Bakoverkanter, tree edges ("tre-kanter") og foroverkanter</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Tre-kanter og bakoverkanter finner man enkelt eksempler på grafer som muliggjør (En K<sub>3</sub>-graf, for eksempel). Forover-kanter og kryss-kanter kan man aldri få, siden man aldri vil kunne komme seg til ferdigprosesserte noder: En kant som leder til en ferdigprosessert node, vil allerede ha blitt oppdaget av denne noden. For et formelt bevis, se Teorem 22.10 i Cormen.</lf></td>
+</tr>
+</table><p><intro><img src= "http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/tree_edges.png"  hspace="10" vspace="10" border="0">
+         <br>I bildet ovenfor er det tegnet en rettet graf.
+   <br><br>Vi kjører DFS på denne grafen, starter søket i node 1 og deretter velges nodene etter økende verdi. (Når man kjører søket må man gå i pilenes retninger) 
+   <br><br></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvor mange foroverkanter og bakoverkanter får man i løpet av DFS-kjøringen?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>2 foroverkanter og 4 bakoverkanter<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="2"  checked="checked" disabled="disabled" /> <alt>1 foroverkant og 3 bakoverkanter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>3 foroverkanter og 4 bakoverkanter</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Foroverkant(er): (1,4), Bakoverkanter: (3,2), (7,6), (7,1)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hvilken kant er en krysskant?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>(1,4)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>(7,6)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="3"  checked="checked" disabled="disabled" /> <alt>(6,5)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>(6,5) er en krysskant fordi når man går fra node 6 til node 5, ser man at node 5 hverken er etterfølger eller
+         forgjenger til node 6.</lf></td>
+</tr>
+</table><p><intro>Vi kjører DFS på nytt, denne gangen starter vi i node 1, men velger nodene etter synkende verdi.</intro></p>
+<!-- DELOPPGAVE 4e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hva slags type kant er (1,4) nå?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Tree edge ("Tre-kant")<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>Foroverkant<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>Krysskant</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

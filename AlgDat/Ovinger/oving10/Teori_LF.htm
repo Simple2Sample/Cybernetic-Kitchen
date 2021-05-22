@@ -1,0 +1,416 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Dynamisk programmering</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke46">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_dp/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Dynamisk programmering</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_dp/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_dp/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_dp/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 11.11.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvilket utsagn om dynamisk programmering er <i>ikke</i> korrekt? Dynamisk programmering...</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>...kombinerer løsningene av underproblemer for å løse et problem.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>...kan løse problemer med mindre arbeid enn en splitt-og-hersk-algoritme.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="3"  checked="checked" disabled="disabled" /> <alt>...kan ikke brukes sammen med rekursjon.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="4"  disabled="disabled" /> <alt>...brukes ofte på optimaliseringsproblemer.</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvilket av disse problemene er mest hensiktsmessig å løse med dynamisk programmering?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>Finne et element som forekommer mer enn én gang i en liste bestående av n heltall mellom 1 og n-1.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>Sortere en liste bestående av n heltall mellom 1 og n<sup>2</sup>.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Finne det n'te Fibonacci-tallet <!--, der n >= 10<sup>3</sup>-->.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="4"  disabled="disabled" /> <alt>Finne det elementet i et binært søketre som har verdi nærmest en oppgitt verdi.</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Er det tilfelle for alle optimaliseringsproblemer at en optimal løsning av en instans av problemet er satt sammen av optimale løsninger på underinstanser?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>Ja<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nei, det kan hende at underinstansene (delproblemene) ikke er uavhengige. At de er avhengige vil si at de bruker en felles ressurs, f.eks. slik at en optimal løsning på begge delproblemene vil bruke en ressurs som bare kan brukes en gang.<br /><br />
+Et eksempel på et slikt problem, er å finne den lengste enkle stien i en uvektet graf. En enkel sti er en sti der alle nodene er forskjellige. Et eksempel på en instans der optimale løsninger på underinstanser ikke gir optimal løsning på instansen er en følgende:
+<pre>
+V = {q, r, s, t}
+E = {q->r, r->q, r->s, s->r, s->t, t->s, t->q, q->t}
+Finn den lengste enkle stien fra q til t.
+</pre>
+Underinstanser av dette er
+<pre>
+V = (som over)
+E = (som over)
+Finn den lengste enkle stien fra q til r.
+</pre>
+og
+<pre>
+V = (som over)
+E = (som over)
+Finn den lengste enkle stien fra r til t.
+</pre>
+Løsningene på underinstansene er hhv. <code>q -> t -> s -> r</code> og <code>r -> s -> t</code> (evt. <code> r -> q -> t</code> i siste tilfelle). Men som vi ser brukes node <code>s</code> og <code>t</code> (evt. <code>q</code> og <code>t</code>) om igjen av løsningen på den andre underinstansen, og vi får ikke en enkel sti dersom vi setter sammen løsningene fra de to underinstansene. Altså er de ikke uavhengige mtp. ressursbruk.
+</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>I denne oppgaven skal vi ta for oss et rektangulært rutenett gitt som følger:<br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/matrise.png"><br><br>
+Vi skal nå prøve å finne ut av hvor mange veier det finnes fra punkt start (punkt [1, 1]) til punkt Mål (punkt [m, n]) under visse restriksjoner.<br>
+En lovlig vei fra Start til Mål defineres ved at et skritt fra punkt [i, j] på veien skal gå enten til punktet
+[i+1, j] eller til punktet [i, j+1]. To veier er forskjellige dersom de ikke er identisk like, skritt for skritt.
+Funksjonen T(i, j) skal gi antall veier fra punkt [1, 1] til punkt [i, j]. Dette fører til at T(1, 2) = 1 og T(3, 2) = 3.
+
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva blir T(1, 5) ?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  checked="checked" disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="5"  disabled="disabled" /> <alt>5</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hva blir T(5, 3)?(Det kan være lurt å prøve å finne et system for å svare på oppgaven)</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>8</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>10</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>12</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="4"  checked="checked" disabled="disabled" /> <alt>15</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="5"  disabled="disabled" /> <alt>18</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Finn et uttrykk som gjør deg i stand til å regne ut T(m, n). T(m, n) = ?</tekst> <i>(25 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>T(m-1, n-1) + 2<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="2"  checked="checked" disabled="disabled" /> <alt>T(m-1, n) + T(m, n-1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>MAX{ T(m-1, n), T(m, n-1) } + 1<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>m<sup>2</sup> + n<sup>2</sup> - m * n<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="5"  disabled="disabled" /> <alt>T(m-1, n) + T(m, n-1) + T(m-1, n-1)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Merk at du også må ha med sluttbetingelsen T(n,1) = T(1,n) = 1 for å faktisk regne ut T(m,n). Men T(m-1,n) + T(m,n-1) er det eneste av uttrykkene som gjør deg i stand til å regne ut T(m,n), uavhengig av sluttbetingelse.</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro><b>0-1-Ryggsekkproblemet:</b><br>Gitt <i>n</i> elementer med vekt <i>w<sub>1</sub></i>,...,<i>w<sub>n</sub></i> og verdi <i>v<sub>1</sub></i>,...,<i>v<sub>n</sub></i> og en ryggsekk med kapasitet <i>W</i>, finn den mest verdifulle kombinasjonen av elementer du får plass til i sekken når et element kan velges maksimalt én gang. <i>V</i> er da den totale verdien av denne kombinasjonen.<br><br>Hva blir <i>V</i> gitt:</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>W = 5<br><i>v<sub>1</sub></i> = 12, <i>v<sub>2</sub></i> = 10, <i>v<sub>3</sub></i> = 20, <i>v<sub>4</sub></i> = 15<br><i>w<sub>1</sub></i> = 2, <i>w<sub>2</sub></i> = 1, <i>w<sub>3</sub></i> = 3, <i>w<sub>4</sub></i> = 3<br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="1"  checked="checked" disabled="disabled" /> <alt>32<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>35<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>37<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>47</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>W = 740<br><i>v<sub>1</sub></i> = 18, <i>v<sub>2</sub></i> = 27,<i>v<sub>3</sub></i> = 49, <i>v<sub>4</sub></i> = 40, <i>v<sub>5</sub></i> = 24, <i>v<sub>6</sub></i> = 22, <i>v<sub>7</sub></i> = 29, <i>v<sub>8</sub></i> = 10, <i>v<sub>9</sub></i> = 24, <i>v<sub>10</sub></i> = 40<br><i>w<sub>1</sub></i> = 320, <i>w<sub>2</sub></i> = 301, <i>w<sub>3</sub></i> = 371, <i>w<sub>4</sub></i> = 296, <i>w<sub>5</sub></i> = 303, <i>w<sub>6</sub></i> = 359, <i>w<sub>7</sub></i> = 148, <i>w<sub>8</sub></i> = 275, <i>w<sub>9</sub></i> = 296, <i>w<sub>10</sub></i> = 395<br></tekst> <i>(20 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>78<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>87<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>89<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="4"  checked="checked" disabled="disabled" /> <alt>93</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Samme som b), men med W = 720<br></tekst> <i>(20 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>78<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>87<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="3"  checked="checked" disabled="disabled" /> <alt>89<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="4"  disabled="disabled" /> <alt>93</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

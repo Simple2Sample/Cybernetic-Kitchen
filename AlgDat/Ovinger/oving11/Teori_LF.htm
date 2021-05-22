@@ -1,0 +1,703 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Grådighet</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke47">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_graadighet/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Grådighet</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_graadighet/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_graadighet/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_graadighet/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 18.11.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Grådige algoritmer brukes til å ... </tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>skape harmoni og fred på jord<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="2"  checked="checked" disabled="disabled" /> <alt>løse optimaliseringsproblemer<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>plage studenter som tar faget "Algoritmer og Datastrukturer"<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="4"  disabled="disabled" /> <alt>finne et riktig alternativ på dette spørsmålet<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hva kjennetegner en grådig algoritme? </tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>alle grådige algoritmer er iterative<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>alle grådige algoritmer når alltid en globalt optimal løsning<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>alle grådige algoritmer er rekursive<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="4"  disabled="disabled" /> <alt>ingen alternativ er riktig<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Med en optimal delstruktur menes det at ... </tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>en optimal løsning til delproblemet er også med i en optimal løsning til problemet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>en optimal løsning til problemet er en optimal løsning til delproblemet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>en optimal løsning til delproblemet er en optimal løsning til problemet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="4"  disabled="disabled" /> <alt>en optimal løsning til problemet er også med i en optimal løsning til delproblemet<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Med "greedy choice property" menes det at ... </tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>en globalt optimal løsning kan oppnås bare ved å ta en globalt optimal beslutning<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>en globalt optimal løsning kan oppnås ved å ta en lokalt optimal beslutning<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>en globalt optimal løsning kan oppnås ved å ta hvilken som helst beslutning siden problemet er optimalt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>en globalt optimal løsning kan oppnås ved å ta hvilken som helst beslutning siden delproblemet er optimalt<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>e) <tekst>Må alle beslutninger som tas av en grådig algoritme være uforanderlige?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>nei<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>ja<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>nei hvis de er lokalt optimale<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>ja hvis de er lokalt optimale<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>f) <tekst>Må alle beslutninger som tas av en grådig algoritme stemme med betingelsene?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>nei<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>ja<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>nei hvis de er lokalt optimale<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>ja hvis de er lokalt optimale<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1g -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>g) <tekst>Hva som er felles mellom Grådighet og Dynamisk Programmering?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>begge er topp-ned (top-down)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>begge er bunn-opp (bottom-up)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>begge utnytter en optimal delstruktur<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>begge utnytter mellomlagring for å håndtere overlappende delproblemer<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1h -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>h) <tekst>Hvilken av følgende algoritmer er ikke grådig?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>Dijkstra<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>Floyd-Warshall<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>Prim<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>Kruskal<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="5"  disabled="disabled" /> <alt>ingen alternativ er riktig, alle er grådige<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro>
+</intro></p>
+<!-- DELOPPGAVE 1i -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>i) <tekst>I "Activity-Selection Problem" har vi en mengde aktiviteter som overlapper i tid, og vi ønsker å finne en så stor delmengde som mulig der aktivitetene ikke overlapper hverandre. Dette kan løses ved å stadig velge den aktiviteten som avslutter først, og fjerne alle instruksjoner som overlapper denne. Hvis vi velger den aktiviteten som starter sist i stedet for den som avslutter først vil algoritmen ... </tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>ikke være grådig nå lengre<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>være grådig men ikke gi en optimal løsning<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>være grådig og gi en optimal løsning<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="4"  disabled="disabled" /> <alt>gå i uendelig løkke<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1j -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>j) <tekst>Hvilket av følgende problemer vil ikke alltid gi en optimal løsning dersom en bruker en grådig algoritme?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>"Fractional Knapsack Problem"<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>Alle-til-alle "Shortest Path Problem"<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>"Minimum Spanning Tree"<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="4"  disabled="disabled" /> <alt>"Traveling Salesman Problem"<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro><p>I denne oppgaven skal vi ta for oss Activity-Selection Problem fra kapittel 16.1. Nedenfor har vi gitt tre (grådige) algoritmer som 
+
+er forsøk på å løse dette problemet. Input er S og F, med henholdsvis starttidene og sluttidene for 
+
+aktivitetene. s<sub>i</sub> og f<sub>i</sub> er starttid og slutttid for element i.</p>
+
+<p>
+I Wangchang(S,F) antar vi at aktivitetene er sortert etter synkende sluttid.<br><br>
+
+<strong>Wangchang(S,F):</strong><br>
+n &#8592; length(s)<br>
+A &#8592; {1}<br>
+j &#8592; 1<br>
+for i &#8592; 2 to n:<br>
+<span style="margin-left:30px">do if f<sub>i</sub> &#8805; s<sub>j</sub> then<br></span>
+<span style="margin-left:60px">A &#8592; A &#8746; {i}<br></span>
+<span style="margin-left:60px">j &#8592; i<br></span>
+return A<br>
+</p>
+
+<p>I Mimblewimble(S,F) antar vi at aktivitetene er sortert etter synkende starttid.<br><br>
+
+<strong>Mimblewimble(S,F):</strong><br>
+n &#8592; length(s)<br>
+A &#8592; {1}<br>
+j &#8592; 1<br>
+for i &#8592; 2 to n:<br>
+<span style="margin-left:30px">do if f<sub>i</sub> &#8804; s<sub>j</sub> then<br></span>
+<span style="margin-left:60px">A &#8592; A &#8746; {i}<br></span>
+<span style="margin-left:60px">j &#8592; i<br></span>
+return A
+</p>
+
+<p>
+I Nitwit(S,F) antar vi at aktivitetene er sortert etter økende varighet.<br><br>
+
+<strong>Nitwit(S,F):</strong><br>
+n &#8592; length(s)<br>
+A &#8592; {1}<br>
+for i &#8592; 2 to n:<br>
+<span style="margin-left:30px">ok &#8592; true<br></span>
+<span style="margin-left:30px">for a in A:<br></span>
+<span style="margin-left:60px">do if i collides with a:<br></span>
+<span style="margin-left:90px">ok &#8592; false<br></span>
+<span style="margin-left:30px">do if ok:<br></span>
+<span style="margin-left:60px">A &#8592; A &#8746; {i}<br></span>
+<span style="margin-left:60px">j &#8592; i<br></span>
+return A<br><br><i>"if i collides with a" sjekker her om aktivitet i og a overlapper.</i><br>
+</p></intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Hva er det grådige valget som gjøres i Nitwit?</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Den konstruerer et huffman-tre, og velger neste aktivitet ut fra binærkoden til starttiden.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Den velger alltid den aktiviteten som varer kortest blant de som ikke overlapper med en tidligere valgt aktivitet<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Den velger den aktiviteten som passer best inn blant de som allerede er valgt<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Den velger alltid den aktiviteten som varer kortest<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hvilket grådig valg gjøres i Mimblewimble?</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Mimblewimble velger den aktiviteten som til starter sist, men som ikke slutter etter at den forrige valgte starter.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>Mimblewimble velger den aktiviteten som slutter sist, fordi brukere av algoritmen trenger god tid på de aktivitetene de vil foreta seg.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>Mimblewimble velger den aktiviteten som starter først, men ikke før den forrige aktiviteten slutter<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="4"  disabled="disabled" /> <alt>Mimblewimble velger den aktiviteten som slutter først, og lar det dermed være mest mulig plass igjen til andre aktiviteter.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Gitt følgende inndata, hva returnerer Wangchang? S=(3,5,3,1), F=(7,6,4,2)</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>{1,3}<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>{2,3,4}<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>{1,4}<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="4"  disabled="disabled" /> <alt>{1,2}<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Hvilke(n) av algoritmene gir en korrekt løsning på activity-selection problem?</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>Alle gir korrekt løsning<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>Wangchang og Mimblewimble<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>Wangchang og Nitwit<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="4"  disabled="disabled" /> <alt>Mimblewimble og Nitwit<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="5"  disabled="disabled" /> <alt>Wangchang<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="6"  disabled="disabled" /> <alt>Mimblewimble<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="7"  disabled="disabled" /> <alt>Nitwit<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="8"  disabled="disabled" /> <alt>Ingen gir korrekt løsning.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Kjør Huffmanns algoritme (s.388 i Cormen) for de følgende frekvensene, <BR><BR>a:1 b:1 c:2 d:3 e:5 f:8 g:13 h:21<BR><BR>husk at dersom flere verdier er like når du bygger treet, vil en bokstav kunne få forskjellig verdi alt etter hvilken man tar først. I dette eksempelet kan 'a' ta 4 forskjellige verdier. Hvilken verdi kan den ikke ta?</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>1111111<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>1111110<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="3"  disabled="disabled" /> <alt>1111100<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="4"  disabled="disabled" /> <alt>1111101<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="5"  disabled="disabled" /> <alt>1110111<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hvis vi går ut fra at a har tatt verdien 1111111. Hva får du hvis du dekoder følgende sekvens<BR><BR> 01101111111111111011110<BR></tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>abhcd?<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>hfabd?<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>fbhcd?<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="4"  disabled="disabled" /> <alt>hfbda?<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="5"  disabled="disabled" /> <alt>Koden svarer ikke til en prefix traversering?<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Hva er den maksimale høyden på et huffmantre? (n = antall symboler som skal kodes)</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>log(n)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="2"  disabled="disabled" /> <alt>log<sub>2</sub>(n)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>n<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>n-1<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>2<sup>n</sup><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="6"  disabled="disabled" /> <alt>2*n<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Her må vi huske på at huffmantrær er fulle: enhver node har enten null eller to barn. I det "verste" tilfellet vil alle de interne nodene ha en løvnode som det ene barnet og en intern node som det andre barnet, med unntak av den nederste interne noden, hvor begge barna er løvnoder. Et huffmantre for <i>n</i> tegn skal ha <i>n</i> løvnoder. Den første er på nivå 1, den andre på nivå 2 osv. - den siste og nest siste noden er dermed på nivå <i>n-1</i>.<!--Siste node vil ha 2 løvnoder, alle andre en løvnode og et subtre (n-1)--></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

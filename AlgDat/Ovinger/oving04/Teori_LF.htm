@@ -1,0 +1,526 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Topologisk sortering og minimale spenntrær</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_topo_spenntraer/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Topologisk sortering og minimale spenntrær</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_topo_spenntraer/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_topo_spenntraer/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_topo_spenntraer/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 30.09.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro><img src= "http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/graf_topologisk.gif" vspace="10" border="0"><br>
+<font color=green>Relevant pensum: 22.4 Topologisk sortering. (22.1-22.3) (Cormen), 3.6 Directed Acyclic Graphs and Topological Ordering (Kleinberg)</font>
+<p>I første deloppgave undersøker algoritmen grafens noder i omvendt alfabetisk rekkefølge. I grafen vil også en nodes naboer behandles i omvendt alfabetisk rekkefølge.
+</intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Hvilken topologisk sortering vil Topological-Sort(G) komme fram til på grafen over? Bruk versjonen av topologisk sortering som benytter seg av DFS.</tekst> <i>(12.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>m,n,p,o,q,s,r,t<br></alt>
+					</span>
+					<span style="color: red; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="2"  checked="checked" disabled="disabled" /> <alt>p,n,o,s,m,r,q,t<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>p,n,m,s,r,t,q,o<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Kjør topologisk sortering der  med alfabetisk prioritering på DFS-søket. Da finner du ut at alternativ 2 stemmer.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>I dette søket er kanten (O,R) en :</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>Tre - kant? (Tree edge)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>Tilbake - kant? (Back edge)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>Framover - kant? (Forward edge)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="4"  checked="checked" disabled="disabled" /> <alt>Kryss - kant? (Cross edge)<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>(O,R) er ikke i dybde - først skogen, og selv om R er en etterkommer av O er ikke dette en Forward edge da kanten går mellom to trær i dybde først skogen.</lf></td>
+</tr>
+</table><p><intro>Gitt følgende kode:
+<pre>DFS(G):
+    i = 0
+    for vertex in G.V:
+        if not vertex.visited:
+            i += 1
+            DFS-VISIT(G, vertex)
+    return i</pre>
+<code>(DFS-VISIT(G, vertex)</code> kjører et standard dybde-først søk fra node <code>vertex</code> i graf <code>G</code>)</intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hva gjør koden?</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>Teller antall sykler i grafen.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>Teller antall noder.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Teller antall trær i dybdeførst skogen.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="4"  disabled="disabled" /> <alt>Teller antall framoverkanter i grafen.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Merk her at det var DFS[G] vi spurte om, ikke DFS-visit[G]. Da får vi at det blir lagt til en på i hver gang DFS-søket må starte fra en ny node som ikke har vært besøkt tidligere. Dette fører til at man teller antall trær i dybdeførst-skogen, eller med andre ord, hvor mange ganger DFS-søket må starte fra en ny node.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>Et lite land langt, langt borte består av en mengde øyer. Innbyggerne
+      har lenge samlet inn penger for å få veiforbindelse i mellom alle
+      øyene. Prislappen på broene er kun avhengig av broenes lengder og de
+      ønsker derfor å binde i sammen broene med kortest mulig samlet
+      brolengde.
+
+      </intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvor mange broer vil du trenge dersom det er n øyer?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  checked="checked" disabled="disabled" /> <alt>n-1<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>n<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>n*lg(n)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>n^2 - 1<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="5"  disabled="disabled" /> <alt>n^2]<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro>En venn av deg hevder at du har en algoritme som kan løse dette
+problemet i O(n*lg(n)) tid, der n er antall øyer. Du er kanskje litt mer tvilende og mener at kjøretiden vil bli O(n^2). 
+</intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hvem har rett?</tekst> <i>(10 %)</i></b></p>
+
+					<span style="color: red; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Kameraten din<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>Du<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette er en minimal-spenntre oppgave på en tett graf (|E| = |V|^2), og  dermed kan vi ikke gjøre noe bedre enn O(V^2).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Gitt en urettet, vektet, sammenhengende graf G = (V,E). Hvordan skal vi gå frem for å finne et spenntre som minimerer vekten på den dyreste kanten i treet? (Treets totale vekt er uvesentlig.)</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>Prims algoritme<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>Kruskals algoritme<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Begge deler fungerer<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>Ingen fungerer, vi trenger en annen algoritme.<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Se løsningsforslag på oppgave 2, eksamen august 1992.</lf></td>
+</tr>
+</table><p><intro><img src= "http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/min_spenntre.jpg"  hspace="10" vspace="10" border="0"><br>
+I figuren over er det tegnet en graf med tilhørende minimalt spenntre. Ta utganspunkt i definisjonene gitt i kapittel 23 (Cormen) og kapittel 4. og svar på følgende spørsmål. 
+
+</intro></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Gitt subsettet A bestående av kantene (J,N),(N,K),(N,O) og subsettet B = (C,G),(G,H),(G,L),(H,Q). Hvilket av følgende utsagn er riktige?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>B er et subsett av det minimale spenntreet.<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>Kanten (J,E) er en trygg kant for A<br/></alt>
+					</span>
+					<span style="color: red; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Kanten (N,K) er en trygg kant for B<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>Kanten (J,M) er en trygg kant for A<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Kanten (J,M) kan legges til A slik at A union med (J,M) fortsatt er et subsett av det minimale spenntreet. Og er derfor per definisjon en trygg kant.</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro><b>Minimale spenntrær</b><p>Er følgende utsagn sanne eller usanne?
+
+</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvis kanten E er den kanten med lavest vekt i en sammenhengende graf, så er E med i ett og bare ett MST i grafen.</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>Sant<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>E kan være med i flere MST<br></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis kanten E har lavere vekt enn alle de andre kantene i en sammenhengende graf, så er E med i alle MST i grafen</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Se Kruskals algoritme.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvis alle kantene i en sammenhengende graf har forskjellige vekter, vil grafen kun ha ett minimalt spenntre.</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant <br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Vi beviser dette ved motbevis. Hvis utsagnet ikke er sant, vil det si at det finnes en vekt e mellom node A og B som kan erstattes med en annen vekt f mellom node A og C. f kan ikke ha en mindre verdi enn e (ellers vil ikke treet som inneholder e være et minimalt spenntre), så verdien til f er nødvendigvis lik verdien til e. Men siden alle vektene er distinkte er ikke dette mulig. Derfor er utsagnet sant.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Dersom kantene i en sammenhengende graf <u>ikke</u> har forskjellige vekter, vil denne grafen nødvendigvis ha flere minimale spenntrær.</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Sant <br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Det holder å bevise at dette er usant for minst ett tilfelle: Vi antar at kanten mellom nodene A og B har vekten e<sub>v</sub> = 2. Vi antar også at kanten mellom nodene C og D har vekten f<sub>v</sub> = 2. A og C, A og D, B og C, B og D har ingen vekt mellom hverandre. 2 er verdien til den minste vekten i grafen. Det minimale spenntreet til denne grafen vil inneholde både e og f. Hvis vi også antar at alle kantene utenom e og f har distinkte vekter, kan vi konkludere med at grafen kun har ett minimalt spenntre, selv om ikke alle vektene i grafen er distinkte.</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_mst_oppgave4_a.png" width=300/> <br/><br/>
+         Bruk figuren over for å svare på spørsmålene. Hvis du under kjøring av Prims eller Kruskals algoritme
+         kan velge mellom to eller flere kanter med lik vekt skal du velge den som er mellom noder av lavest leksikals verdi.
+</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Det minimale spenntreet for grafen består av kantene?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>(a,f),(d,f),(b,d),(g,d),(b,c),(c,e),(c,h),(h,j),(i,j)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>(b,e),(c,e),(c,h),(h,j),(i,j),(b,d),(a,d),(a,f),(h,g)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>(a,f),(a,d),(a,b),(c,b),(c,e),(c,h),(h,g),(h,j),(i,j)<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="4"  checked="checked" disabled="disabled" /> <alt>(i,j),(h,j),(c,h),(c,e),(c,b),(a,f),(a,d),(b,d),(d,g)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td></td>
+</tr>
+</table><p><intro> </intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis man bruker Prims algoritme med startnode j, da velges (d,b) som kant nummer?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>5<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="2"  checked="checked" disabled="disabled" /> <alt>6<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>7<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="4"  disabled="disabled" /> <alt>8<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="5"  disabled="disabled" /> <alt>9<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td></td>
+</tr>
+</table><p><intro> </intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvis man bruker Kruskals algoritme, hvilken kant blir lagt til etter (a,d)?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>(b,e)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="2"  checked="checked" disabled="disabled" /> <alt>(b,c)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>(i,j)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="4"  disabled="disabled" /> <alt>(d,g)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="5"  disabled="disabled" /> <alt>(h,j)<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

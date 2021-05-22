@@ -1,0 +1,661 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Sorteringsmetoder</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_sortering/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Sorteringsmetoder</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_sortering/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_sortering/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_sortering/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 14.10.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva er kjøretiden til den mest effektive algoritmen som kan finne ut om alle elementene i en usortert liste med n elementer er unike?</tekst> <i>(20 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>O(log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>O(n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="4"  checked="checked" disabled="disabled" /> <alt>O(n*log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="5"  disabled="disabled" /> <alt>O(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="6"  disabled="disabled" /> <alt>O(n<sup>2</sup>*log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="7"  disabled="disabled" /> <alt>O(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="8"  disabled="disabled" /> <alt>O(n!)<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sorter listen først med en O(n*log(n)) algoritme. Søk deretter sekvensielt gjennom listen på leting etter etterfølgende elementer med samme verdi.
+</lf></td>
+</tr>
+</table><p><intro>I de følgende deloppgavene ser vi bort fra (ukjente) konstantledd i kjøretiden til sorteringsalgoritmene, rund av til nærmeste alternativ der det er nødvendig. Samtidig forutsetter vi at et sekvensielt søk alltid søker igjennom hele listen.</intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvor mange ganger må man utføre et søk i en usortert liste på n = 10<sup>3</sup> elementer for at det skal lønne seg å først sortere den og deretter søke vha. binærsøk, fremfor å foreta sekvensielle søk? Vi antar at sorteringsalgoritmen som blir brukt er mergesort</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>2<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>4<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>6<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="4"  disabled="disabled" /> <alt>8<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="5"  checked="checked" disabled="disabled" /> <alt>10<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="6"  disabled="disabled" /> <alt>12<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="7"  disabled="disabled" /> <alt>14<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sekvensielt søk er k * n. Binærsøk er n*log2(n) + k*log2(n). Oppgaven går derfor ut på å finne ut når n*log2(n) + k*log2(n) = k * n. Løst mhp. k får vi da k = -n*log2(n)/(log2(n)-n).<br>For n = 1e3 så blir k = 10,07 ~= 10. (vi runder av til nærmeste svaralternativ)
+</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvis vi har n = 10<sup>5</sup> elementer?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>4<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>8<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>12<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="4"  checked="checked" disabled="disabled" /> <alt>16<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="5"  disabled="disabled" /> <alt>20<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="6"  disabled="disabled" /> <alt>24<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="7"  disabled="disabled" /> <alt>28<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>For n = 1e5 så blir k = 16,6 ~= 16. (vi runder av til nærmeste svaralternativ)</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Dersom man ønsker et lavt minneforbruk foretrekker man:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: red; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Bubblesort<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>Mergesort<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>Heapsort<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>Det spiller ingen rolle<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Heapsort er en 'in place' sorteringsalgoritme, og bruker asymptotisk mindre minne enn mergesort. Den er også raskere enn bubblesort.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Dersom vi vet at vi behandler heltall, vil en sortering basert på sammenlikning kunne oppnå O(n) kjøretid:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sortering basert på sammenlikning er &#937;(n*lg(n)) uansett. Det spiller ingen rolle hva man vet om input så lenge man ikke eksplisitt benytter seg av det.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Dersom man allerede har laget en heap av tallene som skal sorteres, kan man sortere med Heapsort i O(n) kjøretid:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Heap-konstruksjon er O(n). Det er selve sorteringen som tar O(n*lg(n)) tid.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Quicksort forbruker O(1) ekstra minne i tillegg til det som trengs for å lagre tallene som skal sorteres:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Man må lagre indeksene for hvert rekursive kall</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Mergesort forbruker O(lg(n)) ekstra minne i tillegg til det som trengs for å lagre tallene som skal sorteres:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Mergesort bruker O(n) ekstra minne, fordi Merge-rutinen må ha en like stor liste for å flette listene inn i.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>f) <tekst>Dersom du vet n tall i [0, n-1](med duplikater) skal sorteres, vil counting sort være en god algoritme:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Countingsort får da kjøretid O(n+k), men k=n så: O(2n) = O(n)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2g -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>g) <tekst>Grunnen til at Radix-sort må startes på minst-signifikante-siffer, er at de senere sorteringene får større innvirkning på endelig rekkefølge:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2h -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>h) <tekst>All input kan gi worst-case kjøretid for randomized-quicksort:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Om man har veldig uflaks kan man alltid velge største som pivot. Men ettersom det er veldig lav sannsynlighet for dette spiller det liten rolle.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2i -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>i) <tekst>Best-case kjøretid for insertionsort er O(n):</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Om elementene allerede er sortert krever insertionsort bare en sjekk for hvert element i listen. Ettersom dette vil være større enn forrige vil det være ferdig plassert og algoritmen går videre.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2j -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>j) <tekst>Dersom du erstatter det lineære søket i insertionsort med et binærsøk får du en O(n*lg(n)) sorteringsalgoritme:</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>Sant<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Usant<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Vi må fortsatt flytte alle de foregående elementene nedover. Dette blir akkurat samme kjøretid som for søket.</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Her kommer fire eksempler på binærtrær. <br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/hvem_er_heap.png"><br><br>Hvilke av disse tilfredsstiller kravene til en max-heap?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>A og B<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>A og C<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>A og D<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="4"  disabled="disabled" /> <alt>B og C<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="5"  checked="checked" disabled="disabled" /> <alt>B og D<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="6"  disabled="disabled" /> <alt>C og D<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="7"  disabled="disabled" /> <alt>Alle<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="8"  disabled="disabled" /> <alt>Ingen</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>A og C er ikke max-heaper siden 8 < 9.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis vi har en heap som ser slik ut:<br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/heapsort.jpg"><br><br>Hvordan ser da listen som representerer heapen ut etter at vi har kjørt fire iterasjoner av heapsort?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>21, 14, 12, 11, 9, 8, 4<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>11, 8, 9, 4, 12, 14, 21<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="3"  disabled="disabled" /> <alt>11, 9, 4, 8, 12, 14, 21<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="4"  checked="checked" disabled="disabled" /> <alt>9, 8, 4, 11, 12, 14, 21<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Er heapsort en stabil sorteringsalgoritme?</tekst> <i>(12.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>Ja<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Bevis for at HeapSort ikke er stabil:<br>Gitt input [2a,2b,1] (som tilfeldigvis allerede er en heap), så vil HeapSort gi [1,2b,2a] som output. <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/heapsort_notstable.gif"> <br> Elementene 2a og 2b har byttet plass, og HeapSort er derfor ikke stabil.</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro>På Posten Norge driver Lars Jakob og sorterer brev til alle landets kanter. Som alle postarbeidere med respekt for seg selv benytter han radix-sortering for å finne ut hvor brevene skal. Han har ti bokser som han mellomlagrer brevene i (nummerert 0 til 9) til de er ferdig sortert. Brev sorteres etter postnummer. Han får inn en uvanlig stor ladning på ti brev og setter straks i gang med å sortere disse. brevene skal til (i rekkefølge)
+<br>2307, 4284, 0327,  4296, 3281,  2291, 8771, 1434, 9215,  4301.<br>
+
+</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Etter én iterasjon i sorteringen, hvor mange brev ligger i boks nummer 1?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>3<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="2"  checked="checked" disabled="disabled" /> <alt>4<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>5<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>6<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>I boksnummer 1 vil det ligge 4 brev siden 4 brev har minst signifikant tall lik 1.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis Lars Jacob tar ut brevene etter 2 iterasjoner i sorteringen, hvilken rekkefølge vil brevene ligge i da (gitt at han tar dem ut etter stigende boksnummer)?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>2307, 4284, 0327, 4301, 8771, 1434, 3281, 9215, 2291, 4296<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>8771, 2291, 4284, 4296, 2307, 4301, 1434, 3281, 0327, 9215<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="3"  checked="checked" disabled="disabled" /> <alt>4301, 2307, 9215, 0327, 1434, 8771, 3281, 4284, 2291, 4296<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="4"  disabled="disabled" /> <alt>9215, 3281, 4284, 2291, 4296, 4301, 2307, 0327, 1434, 8771<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sorteringen ,ra de to foregående iterasjonene er bevart. Det mest signifikante sifferet er ikke sortert enda.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Etter 3 iterasjoner i sorteringen, hvilken rekkefølge vil brevene i boks 2 ligge i?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar19"
+								value="1"  disabled="disabled" /> <alt>2291, 3281, 4284, 4296, 9215<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>2291, 9215, 4296, 3281, 4284.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>9215, 4296, 3281, 2291, 4284.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="4"  checked="checked" disabled="disabled" /> <alt>9215, 3281, 4284, 2291, 4296.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>3281, 4284, 2291, 9251, 4296.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sorteringen fra de to foregående iterasjonene er bevart. Det mest signifikante sifferet er ikke sortert enda.</lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

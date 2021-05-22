@@ -1,0 +1,781 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Parallellitet og repetisjon</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke49">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_parallellitet_div/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Parallellitet og repetisjon</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_parallellitet_div/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_parallellitet_div/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_parallellitet_div/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 02.12.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro>Hva beskriver følgende:</intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Tp:</br></tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>Kjøretid med p prosessorer<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>Totalt arbeid<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>Kritisk sti(span)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>T1:</br></tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>Kjøretid med p prosessorer<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>Totalt arbeid<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>Kritisk sti(span)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>T&#8734;:</br></tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>Kjøretid med p prosessorer<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>Totalt arbeid<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>Kritisk sti(span)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Hvilken av følgende beskrivelser av kritisk sti(span) er riktig?</br></tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>Antall prosessorer som maksimalt kan arbeide samtidig<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>Lengste sti der stegene ikke kan utføres parallelt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>En sti som oppstår mange ganger, og dermed kan kjøres av kun en prosessor en gang<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>e) <tekst>Hva kan man se ut av T1 <= Tp * P ?</br></tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>Parallelliteten til algoritmen er optimal.<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>Den kritiske stien(span) er begrenset av antall prosessorer.<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>Arbeidsmengden ved bruk a P prosessorer er ikke mindre enn ved bruk av 1.<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>I denne oppgaven skal du analysere kjøretiden til små funksjoner. Funksjonen gjorNoe() har kjoretid &#920;(1).
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst><pre>def funksjon1(n):<br />    for i in range(0, n):<br />        for j in range(0, n):<br />            for k in range(0,n/2): <br />                 gjorNoe()<br /></pre></tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(nlog(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2.5</sup>)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="7"  disabled="disabled" /> <alt>T(n)=&#920;(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="8"  disabled="disabled" /> <alt>T(n)=&#920;(n!)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst><pre>def funksjon2(n):<br />    gjorNoe()<br />    if n >= 1:<br />        funksjon2(n//4)<br /></pre></tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(nlog(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="7"  disabled="disabled" /> <alt>T(n)=&#920;(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="8"  disabled="disabled" /> <alt>T(n)=&#920;(n!)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst><pre>def funksjon3(n):<br />    gjorNoe()<br />    if n > 0:<br />        funksjon3(n-1)<br />        funksjon3(n-1)<br />        funksjon3(n-1)<br /></pre></tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>log(n))<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(3<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="7"  disabled="disabled" /> <alt>T(n)=&#920;(4<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="8"  disabled="disabled" /> <alt>T(n)=&#920;(n!)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort_description.png" width="50%" > <br/><br/>
+         Ovenfor er det vist de første stegene av en partition, som er sentralt i quicksort.</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Hvordan ser arrayet ut etter neste iterasjon?</tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort_alt1.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort_alt2.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort_alt3.png" width=300><br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="4"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort_alt4.png" width=300><br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nederste er korrekt</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Hvordan ser arrayet ut at partition er ferdig?</tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt1.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt2.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt3.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="4"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt4.png" width=300><br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="5"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt5.png" width=300><br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="6"  disabled="disabled" /> <alt><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2009_quicksort2_alt6.png" width=300><br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nest nederste er korrekt</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Har Insertion Sort (n elementer) tidskompleksitet &#937;(n)?</tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Støttes av en generell sats: Alle sorteringsalgoritmer basert påsammenligninger er &#937;(n*log n).
+</lf></td>
+</tr>
+</table><p><intro>
+</intro></p>
+<!-- DELOPPGAVE 3d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Er Quicksort &#937;((n*log n)?</tekst> <i>(3.4 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Støttes av en generell sats: Alle sorteringsalgoritmer basert påsammenligninger er &#937;(n*log n).
+</lf></td>
+</tr>
+</table><p><intro>
+</intro></p>
+<!-- DELOPPGAVE 3e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>e) <tekst>Kan Insertion Sort brukes i forbindelse med Quicksort?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>Ja</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Alt bør sorteres ved innsetting når de sorterte intervallene erblitt korte (&#8804;10±).
+</lf></td>
+</tr>
+</table><p><intro>Enhver sorteringsalgoritme som flytter elementer kun 1 posisjon <BR>(til en naboposisjon) av gangen må ha tidskompleksitet minst lik &#937; (n<sup>2</sup>) for sin worst case.
+</intro></p>
+<!-- DELOPPGAVE 3f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>f) <tekst>Er utsagnet over rett eller galt?</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>Rett</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>Galt</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>I verste tilfelle er listen stortert i motsatt rekkefølge. Da må element 1 flyttes n plasser, element 2 må flyttes n - 2 (fra posisjon 2 til posisjon n-1) osv. Kjøretiden blir da summen av en artimetisk rekke som er lik  &#937;(n<sup>2</sup>)</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro>Hva slags problemer (eller variasjoner) blir presentert her?
+</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Det er klassefest, med n gutter og m jenter. En gitt gutt eller jente liker en delmengde av alle som er på festen. Du skal organisere bordkartet og vil gjerne matche flest mulig av personer med en de liker av motsatt kjønn.</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>b) <tekst>Du har fått i oppdrag å bygge kjerrevei mellom flere landsbyer. Det er lite gjørme tilgjengelig, så veien må være kortest mulig, samtidig som det må være mulig å komme seg mellom alle landsbyene.</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Du skal gå i Trondheim sentrum fra et sted til et annet. Desverre har du det problemet at du ikke kan gå forbi en kiosk uten å gå inn og kjøpe deg en brus. Brusprisen på alle kioskene er oppgitt. Hvilken vei skal du gå for å bruke minst mulig penger?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>d) <tekst>Alle barna til Indiana Jones skal over et nettverk av skrøpelige hengebruer. Hver av hengebroene tåler bare å bli gått over et gitt antall ganger (en person av gangen). Dette tallet er oppgitt for hver bro. Du vet ikke hvor mange barn Indiana Jones har (for han har vært over alt i verden), men du vet at han ikke ville sendt dem ut med mindre de alle hadde mulighet til å komme seg over i sikkerhet. Du vet også at Indiana har ordnet det slik at Nazi-Fritz, som vil fange barna , ikke skal klare å følge etter dem(han vil ikke klare å komme i mål). Hvor mange barn har Indiana Jones?</tekst> <i>(5.1 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>e) <tekst>Anta at vi har et N*N brett der hver rute kan være enten hvit eller sort. Vi sier at to felt er <I>naboer</I> dersom de ligger ved siden av hverandre(og ikke på skrå). En sort sky består av ett eller flere sorte felter. Hvis et sort felt er med i en sky er også alle sorte naboer til feltet med i denne skyen.<BR>Vi vil finne antall skyer på brettet.</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar19"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro>
+</intro></p>
+<!-- DELOPPGAVE 4f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>f) <tekst>Nedover langs en stri elv ligger n utleiesteder for kano på rekke og rad. En kano kan leies på etthvert slikt sted og returneres på hvilket som helst annet utleiested lengre ned i elva. Det er ikke mulig å padle motstrøms. For hvilket mulig avgangssted i og ankomssted j er det gitt en leiepris P(i,j). Man skal lage en pristabell for å komme seg fra et hvilket som helst sted til et hvilket som helst sted.</tekst> <i>(6.8 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar20"
+								value="1"  disabled="disabled" /> <alt>Maks flyt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="2"  disabled="disabled" /> <alt>Korteste vei, en til alle<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar20"
+								value="3"  disabled="disabled" /> <alt>Korteste vei, alle til alle<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="4"  disabled="disabled" /> <alt>Minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="5"  disabled="disabled" /> <alt>Dybde-først søk.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 5</h2><p><intro>Denne oppgaven er vanskelig og beregnet kun på de som vil ha en ekstra utfordring.<BR><BR>
+For å gjøre øvingsarbeidet lettere for studentene har fagstaben i TDT4120 bestemt å dele studentene opp i arbeidsgrupper. Det er <B>n >= 2</B> studenter, <B>s(1) s(2)..... s(n)</B> som tar faget(anta at de er arrangert alfabetisk for enkelhetens skyld), fagstaben ønsker å dele opp studentene i <B>k</B> arbeidsgrupper, der <B>1 <= k <= n/2</B>. Hver arbeidsgruppe skal inneholde minst 2 studenter. For å gjøre oppdelingen enkel vil fagstaben lage en alfabetisk sortert liste over studentene og deretter kutte listen i <B>k-1</B> deler for å danne <B>k</B> arbeidsgrupper.<BR><BR>
+
+Studentene vil som vanlig være litt vanskelige, og krever at arbeidsgruppene tar hensyn til hvem som kjenner hvem i klassen. De gir derfor fagstaben en liste med <B>m</B> vennepar. Vi betegner disse parene inn i listen med studenter<B>(a<sub>1</sub>,b<sub>1</sub>),(a<sub>2</sub>,b<sub>2</sub>),(a<sub>m</sub>,b<sub>m</sub>)</B>, slik at for <B>1 <= i <= m</B>, student <B>s(a<sub>i</sub>)</B> er en venn av student <B>s(b<sub>i</sub>)</B>. Et vennepar er <I>respektert</I> dersom begge vennene er i samme gruppe.<BR><BR>
+
+Desverre så er fagstaben så opptatt av å finne på vanskelige oppgaver til studentene slik at de ikke har tid til å finne den optimale måten å dele opp studentene. Hjelp dem ved å finne en algoritme som finner M(n,k) - den partisjonen som deler n studenter opp i k grupper og maksimerer antall venner i hver gruppe.<BR><BR>
+
+Gitt at T(i,j) betegner antall vennskap mellom studenter i rekken i....j .
+
+</intro></p>
+<!-- DELOPPGAVE 5a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>a) <tekst>Hvordan skal den rekursive definisjonen til M se ut?</tekst> <i>(1.7 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar21"
+								value="1"  disabled="disabled" /> <alt>M(i,j) = max<SUB>2(j-1)<= L <=(i-2)</SUB>{M(L,j)+T(L+1,j)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar21"
+								value="2"  disabled="disabled" /> <alt>M(i,j) = max<SUB>2(j-1)<= L <=(i-2)</SUB>{M(L,j-1)+T(L+1,j)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="3"  disabled="disabled" /> <alt>M(i,j) = max<SUB>2(j-1)<= L <=(i-2)</SUB>{M(L,j-1)+T(L+1,j-1)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="4"  disabled="disabled" /> <alt>M(i,j) = max<SUB>2(j-1)<= L <=(i-2)</SUB>{M(L,j)+T(L+1,j-1)<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

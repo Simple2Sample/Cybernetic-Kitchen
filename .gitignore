@@ -1,0 +1,10 @@
+
+*.html@C=N;O=D
+*.html@C=D;O=A
+*.html@C=D;O=D
+*.html@C=M;O=A
+*.html@C=M;O=D
+*.html@C=N;O=A
+*.html@C=S;O=A
+*.html
+*.html@C=S;O=D

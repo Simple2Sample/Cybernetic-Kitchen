@@ -1,0 +1,768 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Korteste vei</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_korteste_vei/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Korteste vei</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_korteste_vei/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_korteste_vei/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_korteste_vei/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 21.10.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvis jeg i en graf G har funnet en korteste vei fra node A til node F, har jeg også en korteste vei fra node F til node A?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>Uansett om G er rettet eller urettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>Hvis G er rettet<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Hvis G er urettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="4"  disabled="disabled" /> <alt>Nei<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dersom G er urettet vil F til A også være korteste vei, for om den ikke var det, kunne man snu den korteste veien F til A, og få en kortere vei mellom A og F. Om G er rettet kan vi ikke si noe om andre retningen,  det f.eks være en lenket liste.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Jeg har i en graf G funnet en korteste vei fra node A til node F, og denne går via node D. Har jeg også funnet en korteste vei fra A til D, og D til F?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Uansett om G er rettet eller urettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>Hvis G er rettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>Hvis G er urettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="4"  disabled="disabled" /> <alt>Nei<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Om delveiene ikke var en korteste vei, kunne vi velge den korteste veien, og dermed få en bedre korteste vei fra A til F</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Jeg har i en graf G funnet en korteste vei fra node A til node D, og fra node D til node F. Har jeg også funnet en korteste vei fra A til F?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>Hvis G er rettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>Hvis G er urettet<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>Uansett om G er rettet eller urettet<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="4"  checked="checked" disabled="disabled" /> <alt>Nei<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Det er ikke sikkert node D ligger på en korteste vei fra A til F</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Dersom alle kanter i en graf har kantvekt = 5, er det mest effektivt å bruke hvilken algoritme for å finne en korteste vei?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  checked="checked" disabled="disabled" /> <alt>BFS<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>DAG shortest path<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>Dijkstra<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="5"  disabled="disabled" /> <alt>Floyd-Warshall<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="6"  disabled="disabled" /> <alt>Alle er like gode<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="7"  disabled="disabled" /> <alt>Ingen vil finne en korteste vei<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Når alle kantvekter er like er korteste vei veien med færrest kanter, og dette finner BFS raskere enn de andre algoritmene.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Dersom alle kanter i en strongly-connected graf har kantvekt = -5, er det mest effektivt å bruke hvilken algoritme for å finne en korteste vei?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>BFS<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="2"  disabled="disabled" /> <alt>DAG shortest path<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>Dijkstra<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="5"  disabled="disabled" /> <alt>Floyd-Warshall<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="6"  disabled="disabled" /> <alt>Alle er like gode<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="7"  checked="checked" disabled="disabled" /> <alt>Ingen vil finne en korteste vei<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>I en strongly-connected graf hvor alle kantene har negativ kantvekt vil det eksistere en negativ sykel.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Vi skal finne korteste vei fra én node til alle de andre i en asyklisk graf uten negative kanter, og vi vet at |E| = O (V<sup>2</sup> / lg V). Hvilken algoritme bør vi bruke?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>Dijkstra med heap<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>Dijkstra med lineært array<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>Bellman-Ford<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="4"  checked="checked" disabled="disabled" /> <alt>Dag-Shortest-Paths<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dag-Shorthest-Path gir oss en kjøretid på O (E + V) som er bedre enn alle de andre alternativene</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Vi skal finne korteste vei fra én node til alle de andre i en graf uten negative kanter, og vi vet at |E| = &#969; (V<sup>2</sup> / lg V). Hvilken algoritme bør vi bruke?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>Dijkstra med heap<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dijkstra med lineært array<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="3"  disabled="disabled" /> <alt>Bellman-Ford<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Når |E| = &#969;(V<sup>2</sup> / lg V), er O(V<sup>2</sup>) bedre enn O(E lg V) (Dijkstra med heap).</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Vi skal finne korteste vei alle-til-alle i en graf uten negative kanter, og vi vet at |E| = o (V<sup>2</sup> / lg V). Hvilken algoritme bør vi bruke?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Dijkstra med heap, kjørt fra hver node i grafen<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>Dijkstra med lineært array, kjørt fra hver node i grafeny<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>Bellman-Ford, kjørt fra hver node i grafen<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Når |E| = o (V<sup>2</sup> / lg V), er O(VE lg V) bedre enn O(V<sup>3</sup>) (Floyd-Warshall)).</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Vi skal finne korteste vei alle-til-alle i en graf uten negative kanter, og vi vet at |E| = &#920; (V<sup>2</sup>). Hvilken algoritme bør vi bruke? (NB! Merk at oppgaveteksten er blitt endret, det finnes ingen grafer av den typen det stod før, dvs hvor |E| = &#969;(V<sup>2</sup>))</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>Dijkstra med heap, kjørt fra hver node i grafen<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>Faster-All-Pairs-Shorthest-Paths (s.691 i Cormen)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>Bellman-Ford, kjørt fra hver node i grafen<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="4"  checked="checked" disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Når |E| = &#920; (V<sup>2</sup>), er O(V <sup>3</sup>) bedre enn O(V<sup>3</sup> lg V) (Dijkstra og Faster-All-Pairs-...)).</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro>Det er litt kjedelig at Dijkstras algoritme ikke fungerer på grafer med negative kanter. Her er noen forslag for å løse dette problemet i visse tilfeller.</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Vi kan finne den miste kantvekten, og legge til en konstant til alle kantvektene slik at den minste blir lik 1.</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>Dette funker i alle tilfeller<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dette fungerer i visse tilfeller, men ikke generelt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>Dette fungerer dersom konstanten er lavere enn største kantvekt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="4"  disabled="disabled" /> <alt>Dette fungerer dersom konstanten er lavere enn minste positive kantvekt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="5"  disabled="disabled" /> <alt>Dette vil aldri fungere<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Vekten til en korteste vei blir med denne metoden avhengig av antall kanter i løsningen, dvs korteste veier med få kanter vil få en fordel</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Dersom grafen kun inneholder negative kanter, kan vi ganske enkelt ta absoluttverdien, og deretter velge noder med lengst vei istedetfor kortest.</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Dette funker i alle tilfeller<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dette fungerer i visse tilfeller, men ikke generelt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Dette fungerer dersom det ikke er negative sykler i den opprinnelige grafen<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Dette vil aldri fungere<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/lf_ash4.PNG"></br> Metoden vil velge lengste først, men man kan finne en omvei som er lengere på et senere tidspunkt, og veiene vil ikke da bli oppdatert</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Vi kan for hver kantvekt w sette ny kantvekt 2<sup>w</sup></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Dette funker i alle tilfeller<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dette fungerer i visse tilfeller, men ikke generelt<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>Dette fungerer dersom det ikke er negative sykler i den opprinnelige grafen<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="4"  disabled="disabled" /> <alt>Dette vil aldri fungere<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/lf_sgf4.PNG"></br> Summering blir galt. Om vi hadde multiplisert hadde forholdet stemt, men vi får den generelle problemstillingen med valg av negative kanter(vi kan finne en billigere vei senere)</lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2011_shortestpath1.png" width=300/><br/><br/>
+                        Figuren over viser en rettet graf med kantvekter.
+                </intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Bruk en algoritme på grafen for å finne korteste avstand fra A til alle andre noder, da blir de endelige avstandene?(A er plass 0, B plass 1, osv.)</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>[0,8,6,1,5,3,3]<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>[0,11,9,1,9,3,5]<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>[0,8,6,1,5,2,3]<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="4"  checked="checked" disabled="disabled" /> <alt>[0,11,9,1,5,2,3]<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p><intro>
+                </intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>I hvilken rekkefølge velges noder hvis Dijkstra brukes?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>A, D, G, F, E, C, B<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>A, D, G, E, F, C, B<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>A, D, G, E, C, F, B<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="4"  checked="checked" disabled="disabled" /> <alt>A, D, F, G, E, C, B<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2011_shortestpath2.png" width=300/><br/><br/>
+                        Figuren over viser en rettet graf med kantvekter.
+                </intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Bruk en algortime, Dijkstra eller Bellman-Ford, som beskrevet i Cormen, på grafen for å finne korteste avstand fra A til alle andre noder, da blir de endelige avstandene?(A er plass 0, B plass 1, osv.)</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>[0,-1,6,1,5,2,3]<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>[0,-4,6,1,5,2,3]<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="3"  checked="checked" disabled="disabled" /> <alt>[0,-1,9,1,5,2,3], men man må bruke Bellman-Ford<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="4"  disabled="disabled" /> <alt>[0,-4,6,1,5,2,3], men man må bruke Bellman-Ford<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="5"  disabled="disabled" /> <alt>Man kan ikke finne korteste vei ettersom grafen inneholder negative sykler<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dijkstra klarer ikke negative kanter, men Bellman-Ford fungerer ettersom det ikke er negative sykler.</lf></td>
+</tr>
+</table><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/2011_shortestpath3.png" width=300/><br/><br/>
+                        Figuren over viser en rettet graf med kantvekter.
+                </intro></p>
+<!-- DELOPPGAVE 4d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Bruk en algortime, Dijkstra eller Bellman-Ford, som beskrevet i Cormen, på grafen for 
+å finne korteste avstand fra A til alle andre noder, da blir de endelige avstandene?(A er plass 0, B plass 1, osv.)</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>[0,2,0,-1,-1,-3,-1]<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>[0,0,-2,-1,-3,-3,-1]<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>[0,2,0,-1,-1,-3,-1], men man må bruke Bellman-Ford<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="4"  disabled="disabled" /> <alt>[0,0,-2,-1,-3,-3,-1], men man må bruke Bellman-Ford<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="5"  checked="checked" disabled="disabled" /> <alt>Man kan ikke finne korteste vei ettersom grafen inneholder negative sykler<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Grafen har en negativ sykel: ADFA.</lf></td>
+</tr>
+</table><h2>Oppgave 5</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/dijkstras.gif"></intro></p>
+<!-- DELOPPGAVE 5a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva skjer dersom man bytter ut linje 4 i Dijkstras algoritme:<BR>while Q!=Ø<BR>med:<BR>while |Q| > 1<BR>(altså at løkka kjører så lenge køen inneholder mer enn ett element)?</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>Dijkstras vil ikke gi rett svar lenger da Relax ikke vil kjøres på den siste noden og man kan ikke være sikker på at løsningen er korrekt!<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dijkstras vil gi rett svar da siste element i køen umulig kan være forbedre den foreløpige løsningen.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>Dijkstras vil ikke gi rett svar da det alltid vil finnes en node i en graf hvor den korteste veien fra source til denne noden går via det siste elementet.<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 5b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hva gjør 'Dijkstras(G,w,s)' dersom man bytter ut min-prioritetskøen med en max-prioritetskø (og dermed bytter ut kallet til Extract-Min med Extract-Max) og forandrer Relax-subrutinen til følgende:<BR><BR></b>Relax(u,v,w):<BR>1. if v.d < u.d + w(u,v)<BR>2. then v.d = u.d + w(u,v)<BR>3. v.&#960; = u<b><BR><BR></tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>Finner korteste veier fra én startnode til alle andre noder<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>Finner lengste veier fra én startnode til alle andre noder<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="3"  disabled="disabled" /> <alt>Finner veiene fra én node til alle andre der maksimalavstanden mellom to noder er minimal<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="4"  disabled="disabled" /> <alt>Finner korteste veier fra alle noder til alle noder<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="5"  disabled="disabled" /> <alt>Finner veiene fra én node til alle andre der man besøker færrest mulig noder<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="6"  checked="checked" disabled="disabled" /> <alt>Det er et forsøk på å gjøre en av disse tingene, men det vil ikke fungere<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette er et forsøk på å finne lengste vei fra én node til alle andre, men det vil ikke fungere fordi den lengste (sykelfrie) veien mellom to noder ikke nødvendigvis består av flere andre lengste veier. Lengste-vei-problemet har faktisk vist seg å være meget vanskelig å løse, og ligger i en problemklasse som kalles NP-komplett. Dette vil dere lære mer om senere.</lf></td>
+</tr>
+</table><p><intro>Relax-subrutine for c):
+<pre>
+1. if v.d > w(u,v)
+2.    then v.d = w(u,v)
+3.         v.&#960; = u
+</pre>     
+      </intro></p>
+<!-- DELOPPGAVE 5c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Anta vi nå ser på Dijkstra på en urettet sammenhengende graf, Hva gjør 'Dijkstras(G,w,s)'(Dijkstra's algoritme) dersom man forandrer Relax-subrutinen som over og legger inn en linje 9 i Dijkstra som setter u.d = -&#8734; etter at alle kantene ut fra node u er relaxed.<br/></tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Den finner et minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til de andre nodene, der den største kanten er minimal<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til alle andre noder, der antall kanter er minimalt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="4"  disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til alle andre noder, men ingen av alternativene over er korrekte.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>Det er et forsøk på å gjøre en av disse tingene, men det vil ikke fungere<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Med den nye relax rutinen vil avstandsestimatene alltid gi billigste kant fra det delvis bygde spenntreet til noden. Man må sette avstandsestimatet til hver node til -&#8734;, etter kantene er relaxed, for å unngå at man oppdaterer forgjengeren til en node som allerede er i treet. Dette gir gir mer eller mindre Prims algoritme, verdien til spenntreet kan finnes fra forgjengergrafen.</lf></td>
+</tr>
+</table><p><intro>
+      </intro></p>
+<!-- DELOPPGAVE 5d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Anta vi har en graf med kantvekter som er positive heltall og anta E er antall kanter og V er antall noder. Hva gjør 'Dijkstras(G,w,s)'(Dijkstra's algoritme) dersom man forandrer alle kantvektene til w'(u,v) = (E + Floor(V lg V))*w(u,v) + 1?.<br/></tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar20"
+								value="1"  disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til de andre nodene, der den største kanten er minimal<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar20"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til alle andre noder, der antall kanter er minimalt<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="3"  disabled="disabled" /> <alt>Den finner korteste veier fra én startnode til alle andre noder, men ingen av alternativene over er korrekte.<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="4"  disabled="disabled" /> <alt>Den finner et minimalt spenntre<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="5"  disabled="disabled" /> <alt>Det er et forsøk på å gjøre en av disse tingene, men det vil ikke fungere<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Multiplikasjon med a > E forandrer ikke resultatet av algoritmen ettersom alle vektene er posistive. Etter denne multiplikasjonen kan vi være sikre på at forskjellen mellom to valgte kantvekter enten er null eller har et avvik større eller lik E. Anta nå at du har to forskjellige korteste veier med antall kanter k_1 og k_2, hvis 1 legges til på hver kant, vil den totale kostnaden øke med k_1 for den første og k_2 for den andre. Slik at den som har færrest antall kanter vil bli prioritert over den med flere. Det er viktig å gange med faktoren a, ellers kan det for eksempel bli bedre å følge en kant på 4+1=5 enn tre på (1+1)+(1+1)+(1+1) = 6, dvs. ikke en korteste vei i det orginale problemet.</lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

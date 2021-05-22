@@ -1,0 +1,54 @@
+Kategorisert liste over ekstra anbefalte eksamensoppgaver, plukket ut av Åsmund Eldhuset.
+*** Dette er en UOFFISIELL liste fra en tidligere undass, og må IKKE tas som hint om hva som kommer på eksamen! ***
+*** Foreløpig versjon; ikke ferdig. ***
+(Uvisst om jeg får tid til å gjøre den ferdig før eksamen. Eksamener f.o.m. 1999 t.o.m. august 2005 og f.o.m. 2007 og ut er ikke gått gjennom ennå.)
+
+
+Kategoriforklaring:
+code	Analyse av oppgitt kode
+cplx	"Vanlig" kompleksitetsanalyse
+dp	Dynamisk programmering
+flow	Flyt og sirkulasjon
+lp	Lineærprogrammering
+np	NP-kompletthet og pseudopolynomialitet
+path	Korteste vei
+rec	Rekursjonsanalyse
+sort	Sortering og heap
+span	Spenntrær
+
+
+
+Oppgaver:
+03d	code	3 - Kodeanalyse
+05d	code	6 - Kodeforståelse
+06d	code	4 - kodeanalyse
+95a	cplx	1 - finne kjøretiden til ukjent subrutine som er del av en oppgitt rutine som skal ha en viss kjøretid
+05d	cplx	1 - Finne på algoritme selv, analyse
+06d	cplx	3 - kompleksitetsanalyse
+95j	dp	9 - billigste vei når man har en bil med begrenset bensintank og bensinstasjoner med forskjellige priser
+95a	dp	6 - DP-oppgave; vanskeligere vri på longest increasing subsequence 
+96j	dp	3 - Grådighet og dynamisk programmering
+97a	dp	3 - Dynamisk programmering
+06m	dp	5 - Konstruere algoritmer selv, kjøretidsanalyse
+06d	dp	6 - dp
+93j	flow	4 - endring av kapasiteter i ferdigutregnet flytnettverk
+93a	flow	3 - bruke maks-flyt for å finne koblingsgrad
+94j	flow	4a - maks-flyt ved hjelp av maks-sirkulasjon
+96j	flow	2 - Manipulere Ford-Fulkerson så den kan benyttes på et lignende problem
+05d	lp	5 - Lineærprogrammering (gutt/jente-matcheproblem). Ikke snill oppgave, men kanskje kjekt som en advarsel om hva som kan komme
+96d	np	6 - Gjenkjenne problem for å finne hvilken algoritme som kan brukes (0 - 1 Knapsack)
+06d	np	5 - pseudopolynomialitet og NPC
+94a	path	4 - korteste vei når du har en bil med begrenset bensintank og ikke alle noder har bensinstasjoner
+96d	path	3 - Modifisering av algoritmer
+97d	path	3 - Modifisering av Floyd-Warshall for å tilpasse problem
+94j	rec	1 - trening i masterteoremet
+96j	rec	1 - Rekursjon, regning på rekurrenser. Kjøring av algoritme med gitt input
+97d	rec	1 - Rekursiv algoritme og regning på rekurrenser
+06m	rec	3 - Regning på rekurrens for antall noder i k-tre
+92a	sort	3 - analyse av p-veis fletting
+94j	sort	2 - finne Theta(n)-algoritme for å sortere heltall opp til n^3
+95j	sort	2 - valg mellom quicksort som enten gjør insertion sort når listene er blitt små nok, eller som lar være å sortere små lister og gjør insertion sort til slutt
+98d	sort	2 - Forklare kjøretiden til sortering ved sammenligning
+03d	sort	2 - Algoritmekonstruksjon
+05d	sort	3 - Finne på selv, snitt av tre vektorer, går an å starte med en dårlig løsning og så jobbe seg gradvis frem mot den optimale
+92a	span	2 - spenntre med minimal lengste kant

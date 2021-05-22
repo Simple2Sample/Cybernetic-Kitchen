@@ -1,0 +1,1097 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Floyd-Warshall</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_floyd_warshall/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Floyd-Warshall</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_floyd_warshall/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_floyd_warshall/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_floyd_warshall/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 28.10.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro>
+      I denne oppgaven ser vi på problemet med å finne korteste vei alle-til-alle i en rettet graf. Du skal benytte deg av følgende algoritme, beskrevet i forelesning: <br/>
+<pre>
+SLOW-ALL-PAIRS-SHORTEST_PATH(W)
+n = W.rows
+L<sup>(1)</sup> = W
+for m = 2 to n-1
+    let L<sup>(m)</sup> be a new (n x n) matrix
+    L<sup>(m)</sup> = EXTEND-SHORTEST-PATHS(L<sup>(m-1)</sup>, W)
+return L<sup>(n-1)</sup>
+
+EXTEND-SHORTEST-PATHS(L, W)
+n = L.rows
+let L' = (l'<sub>ij</sub>) be a new (n x n) matrix
+for i = 1 to n
+    for j = 1 to n
+        l'<sub>ij</sub> = Infinity
+        for k = 1 to n
+            l'<sub>ij</sub> = min(l'<sub>ij</sub>, l<sub>ik</sub> + w<sub>kj</sub>)
+return L'
+
+</pre>
+For alle deloppgavene, skal du ta utgangspunkt i følgende graf: <br /> 
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-Graph.png" alt=""/><br /> 
+    Hvor L<sup>(1)</sup> er gitt ved:<br /><br /> 
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-L1.png" alt=""/>
+   </intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvordan ser L<sup>(2)</sup> ut? <br/>
+     <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-L2.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="3"  checked="checked" disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="4"  disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvordan ser L<sup>(3)</sup> ut? <br/>
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-L3.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="1"  checked="checked" disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="4"  disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvordan ser L<sup>(5)</sup> ut? <br/>
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-L5.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="2"  disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="4"  checked="checked" disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hva vil SLOW-ALL-PAIRS-SHORTEST-PATH gi som korteste vei fra node 6 til node 5? </tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>6-2-1-5<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>6-2-4-5<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>6-3-2-1-5<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="4"  checked="checked" disabled="disabled" /> <alt>6-2-4-1-5<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hva er tolkningen av elementet i rad i, kolonne j i matrisen L<sup>(3)</sup>? </tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>Korteste vei fra node i til node j som får lov til å gå gjennom node 1, 2 og 3<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Korteste vei fra i til j som ikke bruker mer enn 3 kanter<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>Korteste vei fra i til j som ikke er innom mer enn 3 noder<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>Matrisen er kun et ledd i utregningen, og elementene har ingen videre betydning<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>
+      I denne oppgaven ser vi på problemet med å finne korteste vei alle-til-alle i en rettet graf. Algoritmen du skal benytte er FLOYD-WARSHALL(W), som gjennomgått i forelesning. For alle deloppgavene, skal du ta utgangspunkt i følgende graf: <br/> 
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-Graph.png" alt=""/><br/> 
+    Hvor D<sup>(0)</sup> er gitt ved:<br/><br/> 
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-D0-FloydW.png" alt=""/>
+   </intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvordan ser D<sup>(1)</sup> ut? <br/>
+     <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-D1-FloydW.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="2"  checked="checked" disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvordan ser D<sup>(3)</sup> ut? <br/>
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-D3-FloydW.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  checked="checked" disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvordan ser D<sup>(5)</sup> ut? <br/>
+    <img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/All-Pairs_Shortest-Path-D5-FloydW.png" alt=""/>
+   </tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>a)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="2"  checked="checked" disabled="disabled" /> <alt>b)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>c)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>d)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hva vil Floyd-Warshall gi som korteste vei fra node 3 til node 5? </tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>3-2-1-5<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>3-2-4-5<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>3-6-2-1-5<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="4"  checked="checked" disabled="disabled" /> <alt>3-6-2-4-1-5<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hvor mye ekstra data lagrer implementasjonen i læreboka?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="4"  checked="checked" disabled="disabled" /> <alt>&#920;(n<sup>3</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Lagrer en D-matrise på n x n for alle k fra 0 og til n, dette gir &#920;(n<sup>3</sup>) ekstra lagringsplass.</lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 2f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>f) <tekst>Hva er tolkningen av elementet i rad i, kolonne j i matrisen D<sup>(3)</sup>? </tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Korteste vei fra node i til node j som får lov til å gå gjennom node 1, 2 og 3<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Korteste vei fra i til j som ikke bruker mer enn 3 kanter<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Korteste vei fra i til j som ikke er innom mer enn 3 noder<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Matrisen er kun et ledd i utregningen, og elementene har ingen videre betydning<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro>Warshalls algoritme for å finne transitiv tillukning av en graf er som følger:
+<pre>
+WARSHALL(G)
+1. n = |G.V|
+2. let T<sup>(0)</sup> = (t<sub>ij</sub><sup>(0)</sup>) be a new (n x n) matrix
+3. for i = 1 to n
+4.     for j = 1 to n
+5.         if (i, j) is in G.E
+6.             t<sub>ij</sub><sup>(0)</sup> = 1
+7.         else t<sub>ij</sub><sup>(0)</sup> = 0
+8. for k = 1 to n
+9.     let T<sup>(k)</sup> = (t<sub>ij</sub><sup>(k)</sup>) be a new (n x n) matrix
+10.    for i = 1 to n
+11.        for j = 1 to n
+               // | is binary OR, & is binary AND
+12.            t<sub>ij</sub><sup>(k)</sup> = t<sub>ij</sub><sup>(k-1)</sup> | (t<sub>ik</sub><sup>(k-1)</sup> & t<sub>kj</sub><sup>(k-1)</sup>)
+13.return T<sup>(n)</sup>
+</pre>
+Bruk Warshalls algoritme på denne grafen:<br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/warshall.png"><br><br>Matrisen R<sup>(k)</sup> viser stier med mellomliggende noder nummerert <= k. (a=1, b=2, osv.)<br/></intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvordan ser R<sup>(2)</sup> ut?<br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/warshall_matrix_2.png"><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>1<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>2<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>3<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="4"  checked="checked" disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvordan ser R<sup>(5)</sup> ut?<br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/warshall_matrix_5.png"><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="1"  checked="checked" disabled="disabled" /> <alt>1<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>2<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>3<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Kan Warshalls algoritme brukes til å avgjøre om en rettet graf er asyklisk?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Ja<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="2"  disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro>Dersom vi endrer sjekken i linje 5 av Warshalls algoritme til <pre>if i == j or (i, j) is in G.E</pre>, og dermed definerer at hver node trivielt kan nå seg selv, får vi en variant Cormen kaller Transitive-Closure.</intro></p>
+<!-- DELOPPGAVE 3d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Kan Transitive-Closure brukes til å avgjøre om en rettet graf er asyklisk?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>Ja<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro>Nedenfor blir det oppgitt forskjellige grafer. Hva er teoretisk raskeste algoritme (best O) for "korteste vei, <B>alle til alle</B>" - problemet i følgende grafer?
+(Merk: For Dijkstras regner vi med at Extract-Min-operasjonen tar O(V) tid.)
+<BR><BR></intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst><br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/FW-oppg3a.png"><br><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>Dijkstra, kjørt V ganger<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dag-Shortest-path, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="5"  disabled="disabled" /> <alt>Ingen av de nevnte kan løse problemet (uten modifikasjoner)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="6"  disabled="disabled" /> <alt>Ingen er entydig best<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Assymptotisk strammeste kjøretid for de(n) raskeste algoritmen(e) i a) er?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>O(1)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="2"  checked="checked" disabled="disabled" /> <alt>O(EV+V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>O(VlgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>O(VlgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>+VElgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="6"  disabled="disabled" /> <alt>O(VE+V<SUP>2</SUP>+lgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="7"  disabled="disabled" /> <alt>O(EV<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="8"  disabled="disabled" /> <alt>O(VE<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="9"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="10"  disabled="disabled" /> <alt>O(E<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="11"  disabled="disabled" /> <alt>O(V<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="12"  disabled="disabled" /> <alt>Ingen kunne løse problemet<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst><br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/FW-oppg3c.png"><br><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>Dijkstra, kjørt V ganger<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Dag-Shortest-path, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="3"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="5"  disabled="disabled" /> <alt>Ingen av de nevnte kan løse problemet (uten modifikasjoner)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="6"  disabled="disabled" /> <alt>Ingen er entydig best<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Assymptotisk strammeste kjøretid for de(n) raskeste algoritmen(e) i c) er?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar19"
+								value="1"  disabled="disabled" /> <alt>O(1)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="2"  checked="checked" disabled="disabled" /> <alt>O(EV+V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>O(VlgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="4"  disabled="disabled" /> <alt>O(VlgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>+VElgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="6"  disabled="disabled" /> <alt>O(VE+V<SUP>2</SUP>+lgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="7"  disabled="disabled" /> <alt>O(EV<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="8"  disabled="disabled" /> <alt>O(VE<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="9"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="10"  disabled="disabled" /> <alt>O(E<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="11"  disabled="disabled" /> <alt>O(V<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="12"  disabled="disabled" /> <alt>Ingen kunne løse problemet<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst><br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/FW-oppg3e.png"><br><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar20"
+								value="1"  disabled="disabled" /> <alt>Dijkstra, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="2"  disabled="disabled" /> <alt>Dag-Shortest-path, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="3"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar20"
+								value="5"  disabled="disabled" /> <alt>Ingen av de nevnte kan løse problemet (uten modifikasjoner)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar20"
+								value="6"  checked="checked" disabled="disabled" /> <alt>Ingen er entydig best<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Både Floyd-Warshall og Dijkstras har O(V^3)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>f) <tekst>Assymptotisk strammeste kjøretid for de(n) raskeste algoritmen(e) i e) er?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar21"
+								value="1"  disabled="disabled" /> <alt>O(1)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="2"  disabled="disabled" /> <alt>O(EV+V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="3"  disabled="disabled" /> <alt>O(VlgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="4"  disabled="disabled" /> <alt>O(VlgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="5"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>+VElgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="6"  disabled="disabled" /> <alt>O(VE+V<SUP>2</SUP>+lgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="7"  disabled="disabled" /> <alt>O(EV<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="8"  disabled="disabled" /> <alt>O(VE<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="9"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="10"  disabled="disabled" /> <alt>O(E<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar21"
+								value="11"  checked="checked" disabled="disabled" /> <alt>O(V<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar21"
+								value="12"  disabled="disabled" /> <alt>Ingen kunne løse problemet<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4g -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>g) <tekst><br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/FW-oppg3g.png"><br><br></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar22"
+								value="1"  disabled="disabled" /> <alt>Dijkstra, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar22"
+								value="2"  disabled="disabled" /> <alt>Dag-Shortest-path, kjørt V ganger<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar22"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar22"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar22"
+								value="5"  disabled="disabled" /> <alt>Ingen av de nevnte kan løse problemet (uten modifikasjoner)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar22"
+								value="6"  disabled="disabled" /> <alt>Ingen er entydig best<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4h -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>h) <tekst>Assymptotisk strammeste kjøretid for de(n) raskeste algoritmen(e) i g) er?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar23"
+								value="1"  disabled="disabled" /> <alt>O(1)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="2"  disabled="disabled" /> <alt>O(EV+V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="3"  disabled="disabled" /> <alt>O(VlgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="4"  disabled="disabled" /> <alt>O(VlgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="5"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>+VElgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="6"  disabled="disabled" /> <alt>O(VE+V<SUP>2</SUP>+lgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="7"  disabled="disabled" /> <alt>O(EV<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="8"  disabled="disabled" /> <alt>O(VE<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="9"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="10"  disabled="disabled" /> <alt>O(E<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar23"
+								value="11"  checked="checked" disabled="disabled" /> <alt>O(V<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar23"
+								value="12"  disabled="disabled" /> <alt>Ingen kunne løse problemet<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4i -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>i) <tekst><br><br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/FW-oppg3i.png"><br><br> Her holder det ikke å kun oppdage at det finnes negative sykler</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar24"
+								value="1"  disabled="disabled" /> <alt>Dijkstra, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar24"
+								value="2"  disabled="disabled" /> <alt>Dag-Shortest-path, kjørt V ganger<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar24"
+								value="3"  disabled="disabled" /> <alt>Floyd-Warshall<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar24"
+								value="4"  disabled="disabled" /> <alt>Bellman-Ford, kjørt V ganger<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar24"
+								value="5"  checked="checked" disabled="disabled" /> <alt>Ingen av de nevnte kan løse problemet (uten modifikasjoner)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar24"
+								value="6"  disabled="disabled" /> <alt>Ingen er entydig best<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4j -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>j) <tekst>Assymptotisk strammeste kjøretid for de(n) raskeste algoritmen(e) i i) er?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar25"
+								value="1"  disabled="disabled" /> <alt>O(1)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="2"  disabled="disabled" /> <alt>O(EV+V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="3"  disabled="disabled" /> <alt>O(VlgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="4"  disabled="disabled" /> <alt>O(VlgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="5"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>+VElgE)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="6"  disabled="disabled" /> <alt>O(VE+V<SUP>2</SUP>+lgV)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="7"  disabled="disabled" /> <alt>O(EV<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="8"  disabled="disabled" /> <alt>O(VE<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="9"  disabled="disabled" /> <alt>O(V<SUP>2</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="10"  disabled="disabled" /> <alt>O(E<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar25"
+								value="11"  disabled="disabled" /> <alt>O(V<SUP>3</SUP>)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar25"
+								value="12"  checked="checked" disabled="disabled" /> <alt>Ingen kunne løse problemet<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

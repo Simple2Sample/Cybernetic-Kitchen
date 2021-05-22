@@ -1,0 +1,667 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Grafer og hashing</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_grafer_nettverk_hashing/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Grafer og hashing</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_grafer_nettverk_hashing/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_grafer_nettverk_hashing/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_grafer_nettverk_hashing/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 23.09.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro></intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvis du vet at en graf G inneholder sykler, da kan du si at G er:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar1"
+								value="1"  disabled="disabled" /> <alt>Rettet<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>Urettet<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Ingen av alternativene er riktige<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Både rettede og urettede grafer kan ha sykler</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis du vet at en rettet graf G ikke inneholder sykler, da kan du si at G er:</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>Et tre<BR/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="2"  checked="checked" disabled="disabled" /> <alt>En DAG<BR/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="3"  disabled="disabled" /> <alt>Umulig å si uten å vite strukturen til G<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>DAG står for Directed Asyclic Graph (Rettet graf uten sykler)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hvordan ville du representert en graf med få kanter?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>Nabomatrise<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nabolister<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>Lenket liste<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="4"  disabled="disabled" /> <alt>Heap<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hvordan ville du representert en graf med mange kanter?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Nabomatrise<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>Nabolister<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="3"  disabled="disabled" /> <alt>Lenket liste<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>Heap<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hvilken påstand er ikke sann?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>BFS kan brukes til å finne én-til-alle korteste vei<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  checked="checked" disabled="disabled" /> <alt>DFS kan brukes til trefarging av en graf<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>All traversering kan brukes til to-farging av en graf<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>Både BFS og DFS finner alle noder i en sammenhengende graf<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Trefarging av en graf er et vanskelig problem som ingen har funnet en effektiv måte for å løse. Mer om dette senere i kurset.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/dfs_bfs.jpg"  hspace="10" vspace="10" border="0"><br>I figuren ovenfor er det vist en urettet graf med kostnader på kantene, <br> og fire mulige måter å traversere grafen på. 
+<br><br>
+1. - Q,H,P,D,G,F,C,L,E,K,O,B,A,J,N,M,I<br/>
+2. - Q,H,P,D,G,C,B,A,E,F,K,N,J,M,I,O,L<br/>
+3. - Q,H,D,G,C,B,A,E,F,K,N,J,M,I,O,P,L<br/>
+4. - Q,H,P,D,G,F,L,C,E,K,O,B,A,J,N,M,I<br/><br/>
+
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hvilket tilfelle er traverseringen et Bredde-Først-Søk?</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="4"  checked="checked" disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvilket tilfelle er traverseringen et Dybde-Først-Søk?</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>1</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>2</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  checked="checked" disabled="disabled" /> <alt>3</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>4</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_bad.gif" width=25 height=22 alt="[ feil ]"><b>c) <tekst>Hva vil køen til et bredde-først-søk inneholde rett etter at node L har blitt behandlet hvis vi starter i node Q? (Vi forutsetter at nabonoder legges inn i køen i omvendt alfabetisk rekkefølge.)</tekst> <i>(12.5 %)</i></b></p>
+
+					<span style="color: red; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="1"  checked="checked" disabled="disabled" /> <alt>C, E, K, O</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>C, F, K</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>F, G, D</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>K, O, P, I</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>med "køen" sikter vi her til datastrukturen som holder rede på hvilken node algoritmen har igjen å besøke, og rekkefølgen på disse. Dette er den samme konsept som bredde først køen dere brukte i den praktiske øvingen
+</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hva vil stacken til et dybde-først-søk være rett etter at node L har blitt behandlet hvis vi starter i node Q? (Vi forutsetter at nabonoder besøkes i alfabetisk rekkefølge.) MERK: Oppgavteksten har blitt endret fra oppdaget til behandlet. Ingen alternativ var riktig med den tidligere ordlyden.</tekst> <i>(12.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>Q, H, D, G, L</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>Q, H, G, L</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Q, H, G, C, B, A, E, F, P, L</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="4"  disabled="disabled" /> <alt>Q, P, F, O, N, J, A, B, C, G, L</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/9noderUrettet.jpg"  hspace="10" vspace="10" border="0">
+			<p>I figuren ovenfor er det vist en urettet graf med navngitte noder.</p>
+			<p>Dybde først søk (DFS) skal kjøres på grafen, og følgende ekstraopplysning er gitt: 
+				Nabolister er sortert alfabetisk, dvs. hvis noden <strong>C</strong> har 
+				en kant til <strong>A</strong>, <strong>H</strong> og <strong>F</strong> er nabolisten [A, F, H].</p></intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst><p>Hva vil tidsmerkene (timestamps) på node <strong>C</strong> være dersom 
+		          DFS kjøres på grafen med utgangpunkt i node <strong>G</strong>?</p>
+				</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>6/7</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>5/14</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>8/9</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="4"  checked="checked" disabled="disabled" /> <alt>8/13</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf><p>DFS traverserer grafen i følgende rekkefølge:</p>
+		             <p>(1) Oppdag G, (2) Oppdag B, (3) Oppdag D, (4) Avslutt D, (5) Avslutt B, (6) Oppdag E, 
+					    (7) Oppdag H, (8) Oppdag C, (9) Oppdag A,  (10) Avslutt A, (11) Oppdag F, 
+					    (12) Avslutt F, (13) Avslutt C, (14) Oppdag I, (15) Avslutt I, (16) Avslutt H, 
+					    (17) Avslutt E, (18) Avslutt G</strong></p></lf></td>
+</tr>
+</table><p></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst><p>Hvilken farge har node <strong>H</strong> i det øyeblikk 
+						   node <strong>A</strong> blir fargelagt svart?</p>
+				</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar11"
+								value="1"  disabled="disabled" /> <alt>Hvit (uoppdaget)</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Grå (besøkt)</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Svart (ferdig)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf><p>Node <strong>H</strong> har timestamp 7/16 og  
+				     node <strong>A</strong> har 9/10 </p></lf></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro><!--Implementering av en array bygger ofte på implemetering av en hash-tabell.<br>Hash-tabeller kan anvendes for å gjøre operasjoer på enkelte datastrukturer raskere.<br>
+-->
+</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>En god hash-funksjon vil, for en tabell av lengde <i>n</i>, kunne garantere for at <i>k</i> < <i>n</i> innsettinger ikke vil gi kollisjon?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>Ja.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nei, for en god hash-funksjon skal det være like sannsynlig for en nøkkel å sendes til hver av plassene i hash-tabellen.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Du får oppgitt at x.key = m og h(m) = j der h er en hash-funksjon. Da er</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="1"  checked="checked" disabled="disabled" /> <alt>x elementet, m nøkkelen og j hashen.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>x elementet, j nøkkelen og m hashen.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="3"  disabled="disabled" /> <alt>j elementet, m nøkkelen og x hashen.<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="4"  disabled="disabled" /> <alt>Ingen av delene.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Er h(k) = k*r%m,hvor k er nøkkelen, m er et gitt positivt heltall og r er et tilfeldig positivt heltall, en god hash-funksjon?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>Ja.<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="2"  checked="checked" disabled="disabled" /> <alt>Nei.<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Nei, da har man jo ingen mulighet til å slå opp i tabellen.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hvilken operasjon er <i>ikke</i> typisk for på en hash-tabell?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="1"  checked="checked" disabled="disabled" /> <alt>sort(Tabell, Kolonne)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>delete(Tabell, Nøkkel)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="3"  disabled="disabled" /> <alt>search(Tabell, Nøkkel)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="4"  disabled="disabled" /> <alt>insert(Tabell, Nøkkel)<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hva betyr kollisjon (collision) i forbindelse med hash-tabeller?</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>flere ulike hash-verdier gir samme faktiske verdi<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>begge alternativer<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>ingen av alternativene<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="4"  checked="checked" disabled="disabled" /> <alt>flere ulike faktiske nøkler gir samme hash-verdi<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>f) <tekst>Hvordan kan man løse kollisjons-problematikken fra forrige deloppgave?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>dividering (division)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="2"  checked="checked" disabled="disabled" /> <alt>kjeding (chaining)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>multiplisering (multiplication)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>randomisering (randomization)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>ingen av alternativene<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4g -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>g) <tekst>Hvis vi har en funksjon SLETT(T,x) der T er en kjedet hash-tabell og x er et listeelement, så er worst case kjøretiden?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>O(n) både for lenket og dobbelt-lenket liste<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>O(1) både for lenket og dobbelt-lenket liste<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Ingen av delene<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Merk at vi tar inn elementet x og ikke dens nøkkel k. Derfor trenger vi bare å endre pekerverdiene til den foran og den etter. For lenket liste er vi nødt til å søke frem elementet foran, mens for dobbelt-lenket vet vi både den foran og bak. Dermed blir kjøretiden O(1) for dobbelt-lenket og O(n) for lenket.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 4h -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>h) <tekst>Hva betyr åpen addressering (open adressing/closed hashing) i forbindelse med hash-tabeller?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="1"  checked="checked" disabled="disabled" /> <alt>elementene lagres direkte i hash-tabellen<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>nøklene indekseres på flere måter for lettere aksess til elementene<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>man oppretter et ekstra sett pekere som peker til både elementet og tilhørende nøkkel for å få bedre kjøretid ved operasjonene på hash-tabellen<br></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf></lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,835 @@
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+  <link rel  = "stylesheet"
+        href = "http://www.idi.ntnu.no/emner/tdt4120/stylesheet.css"
+        type = "text/css">
+  <title>TDT4120 Algoritmer og datastrukturer: Løsningsforslag - Kjøretidsanalyse</title>
+</head>
+<body leftmargin=0 rightmargin=0 topmargin=0 marginwidth=0 marginheight=0>
+
+<!-- old colour=#fe7312 -->
+
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+  <tr>
+    <td class="container" colspan=2>
+      <table width=100% cellpadding=0 cellspacing=0 border=0>
+        <tr bgcolor="#eeeeff">
+          <td class="container" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_left.tdt4120.jpg"></td>
+          <td class="container" align=right style="text-align:right" valign=top><img src="http://www.idi.ntnu.no/emner/tdt4120/images/heading_right.jpg"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="container" align=left>
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+      Sist endret: 17.08.2010      </font>
+    </td>
+    <td class="container" align=right style="text-align: right;">
+      <img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif" width=1 height=15>
+      <font color=#888888 face="Tahoma,Arial,Helvetica" size=-2>
+&nbsp      </font>
+    </td>
+  </tr>
+  <tr><td class="container">&nbsp;</td></tr>
+  <tr>
+    <td class="container" valign=top>
+      <table cellpadding=0 cellspacing=0 border=0>
+<tr><td class="menu"><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1></td><td class="menu">
+<table cellpadding=4 cellspacing=0 border=0>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/">Hovedside</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/faq.php">FAQ</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/beskjeder.php">Beskjeder</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/kalender/timeplan.php?studass=alle">Timeplan</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/ukeplan.php#uke45">Ukeplan</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/">Øvinger</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/gruppeoving.php">Gruppeøving</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/eksamen.php">Eksamensoppgaver</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/pensum.php">Pensum</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/notater/">Notater</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/arkiv/kode/">Kode/koding</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/ordliste.php">Ordliste</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/kontakt.php">Kontakt</a></td></tr>
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no/emner/tdt4120/generelt/eksterne.php">Eksterne ressurser</a></td></tr>
+<tr><td class="menu"><a href="http://www.idi.ntnu.no">IDI</a></td></tr>
+<tr><td class="menu"><a href="http://www.ntnu.no">NTNU</a></td></tr>
+<tr><td class="menu"><a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_kjoretid/lf/?printable=on">Utskriftsversjon</a></td></tr>
+
+<tr><td class="menu"><font size=-3>&nbsp;</font></td></tr>
+<tr><td class="menu">steffe logget inn<br />
+
+    <a href="http://selje.idi.ntnu.no:1234/tdt4120/student/oversikt.php">Poengoversikt</a><br />
+</table>
+</td>
+<td class="menu">
+<img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+width=13 height=1>
+</td>
+</tr></table>
+    </td>
+    <td class="container" valign=top width=100%>
+      <table cellpadding=0 cellspacing=0 border=0 width=100%><tr><td valign=top>
+
+<!-- *****************
+       END OF HEADER
+     ***************** -->
+
+
+<h1>Løsningsforslag - Kjøretidsanalyse</h1>
+<p>
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_kjoretid/">Oppgave</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_kjoretid/#levering">Levering</a>]
+[<a href="http://selje.idi.ntnu.no:1234/tdt4120/teori/2011_kjoretid/lf/">Løsningsforslag</a>]
+</p>
+
+<p><small>Innleveringsfrist: 07.10.2011 10:00</small></p>
+
+
+<p>
+Du er logget inn og får derfor se om du har svart riktig/feil på de
+enkelte oppgavene.<br />
+LF-svar er markert med <font color="green">grønt</font> og
+feil svar er markert med <font color="red">rødt</font>.
+</p>
+
+<p>
+Hvis dere er uenige i fasit, oppfordres dere til å diskutere dette på
+<a href="news://ntnu.fim.idi.algdat">algdats nyhetsgruppe</a>. Denne
+nyhetsgruppen har også et <a href="http://selje.idi.ntnu.no:1234/tdt4120/newsportal/thread.php?group=ntnu.fim.idi.algdat">webgrensesnitt</a>.
+</p>
+<form action="" method="post">
+<h2>Oppgave 1</h2><p><intro>Sett inn det manglende ordet.<br />Merk at de øvre/nedre begrensningene bare gjelder for n >= n<sub>0</sub> der n<sub>0</sub> er en konstant.
+</intro></p>
+<!-- DELOPPGAVE 1a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>At en algoritme har kjøretid O(f(n)), betyr at kjøretiden har en ... begrensning.</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar1"
+								value="1"  checked="checked" disabled="disabled" /> <alt>øvre</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="2"  disabled="disabled" /> <alt>nedre</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar1"
+								value="3"  disabled="disabled" /> <alt>øvre og nedre</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Kjøretiden er øvre begrenset av c * f(n), hvor c er en konstant.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>At en algoritme har kjøretid &#920;(f(n)), betyr at kjøretiden har en ... begrensning.</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar2"
+								value="1"  disabled="disabled" /> <alt>øvre</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar2"
+								value="2"  disabled="disabled" /> <alt>nedre</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar2"
+								value="3"  checked="checked" disabled="disabled" /> <alt>øvre og nedre</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Kjøretiden er nedre begrenset av c<sub>1</sub> * f(n), og øvre begrenset av c<sub>2</sub> * f(n), hvor c<sub>1</sub> og c<sub>2</sub> er konstanter.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 1c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>At en algoritme har kjøretid &#937;(f(n)), betyr at kjøretiden har en ... begrensning.</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar3"
+								value="1"  disabled="disabled" /> <alt>øvre</alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar3"
+								value="2"  checked="checked" disabled="disabled" /> <alt>nedre</alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar3"
+								value="3"  disabled="disabled" /> <alt>øvre og nedre</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Kjøretiden er nedre begrenset av c * f(n), hvor c er en konstant.</lf></td>
+</tr>
+</table><h2>Oppgave 2</h2><p><intro>Denne oppgaven tar for seg intuitiv forståelse av kjøretiden for gjennomgang av ulike datastrukturer.<br /><br />
+Angi alle svar med den asymptotiske notasjonen som gir mest informasjon. Dvs. de fleste kjøretider omfattes av O(n<sup>n</sup>), siden dette er en veldig høy øvre grense, mens &#920;(f(n)) angir både en øvre og nedre grense og gir derfor mye mer informasjon.
+
+</intro></p>
+<!-- DELOPPGAVE 2a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva er tidskompleksiteten for å traversere ei lenka liste med n ulike elementer?<br></tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar4"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(log n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar4"
+								value="3"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar4"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>For å gå gjennom n elementer trenger man maks n operasjoner og minst n operasjoner. Derfor er T(n)=&#920;(n).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hva er tidskompleksiteten for å traversere lenkede lister med én milliard elementer?<BR></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar5"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1000000000)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar5"
+								value="2"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar5"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>1000000000</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>For å gå gjennom en milliard elementer trenger man en milliard operasjoner og da en milliard er et konstant multiplikat av 1 er T(n)=&#920;(1).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hva er tidskompleksiteten for å traversere ei matrise med n rader og n kolonner?<BR></tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar6"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n log n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar6"
+								value="5"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar6"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>For å gå gjennom n*n elementer trenger man maks n<sup>2</sup> og minst n<sup>2</sup> operasjoner.</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hva er tidskompleksiteten for å traversere (gå gjennom alle elementene) en datastruktur med form som det første laget av en klinkekulepyramide (se bilde under), der n=antall rader?<br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/pyramide_bunn.jpg"></tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar7"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(n log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n * sqrt(n)), der sqrt=kvadratrot<br> </alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar7"
+								value="3"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>*log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="5"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar7"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>4</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Må gå igjennom alle kulene: Sum<sub>i=1</sub><sup>i=n</sup> i = n(n+1) / 2 = n/2 + n<sup>2</sup>/2<br />Denne summeformelen står på side 111 i Rottmann (1999), en veldig kjekk bok å ha for hånden når du skal regne ut tidskompleksitet</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2e -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>e) <tekst>Hva er tidskompleksiteten for å traversere (gå gjennom alle elementene) en datastruktur med form som en pyramide (se bilde) med høyde n?<br><img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/pyramide.jpg"></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar8"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(n log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>*log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>*sqrt(n)), der sqrt=kvadratrot<br> </alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar8"
+								value="5"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar8"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>4</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Sum<sub>i=1</sub><sup>i=n</sup> (i/2 + i<sup>2</sup>/2) = (n(n+1)/2) / 2 + (n(n+1)(2n+1)/6) / 2 = (n/4 + n<sup>2</sup>/4) + (n/12 + 2n<sup>2</sup>/12 + n<sup>2</sup>/12 +2n<sup>3</sup>/12) = 4n/12 + 6n<sup>2</sup>/12 + 2n<sup>3</sup>/12<br />Merk at det ikke er nødvendig å løse ut parantesene, det holder å se direkte fra summeformelen at n<sup>3</sup> blir det dominerende leddet</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 2f -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>f) <tekst>Hva er tidskompleksiteten for en algoritme som ved iterasjon nummer <b>i</b> bruker <b>i</b><sup>2</sup> operasjoner? Algoritmen bruker  <b>n</b> iterasjoner.<BR></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar9"
+								value="1"  disabled="disabled" /> <alt>T(n)=&#920;(n log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="2"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="3"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>*log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="4"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>2</sup>*sqrt(n)), der sqrt=kvadratrot<br> </alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar9"
+								value="5"  checked="checked" disabled="disabled" /> <alt>T(n)=&#920;(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar9"
+								value="6"  disabled="disabled" /> <alt>T(n)=&#920;(n<sup>4</sup>)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Dette likner veldig på oppgaven over og kan løses på samme måte.<br /> Antall operasjoner blir rekkeutviklingen 1+4+9+....+n^2, som har kjent løsning n(n+1)(2n+1)/6 = (2n^3 + 3n^2 + n)/ 6 som er &#920;(n<sup>3</sup>).</lf></td>
+</tr>
+</table><h2>Oppgave 3</h2><p><intro><p>Denne oppgaven tar for seg substitusjonsmetoden for å løse rekurrenser.
+<br />
+Gitt rekurrensen<br />
+T(n) = 2401T(n/7) + n<sup>3</sup><br />
+T(1) = 1<br />
+<br />
+Dersom vi skulle benyttet oss av substitusjonsmetoden og antatt at:<br />
+T(n/2) <= c * n<sup>2</sup>/4 * log(n/2)<br />
+</p>
+</intro></p>
+<!-- DELOPPGAVE 3a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva håper vi å kunne bevise?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar10"
+								value="1"  disabled="disabled" /> <alt>At man kan finne en nedre asymptotisk grense for rekurrensen<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="2"  disabled="disabled" /> <alt>At T(n) <= c * n<sup>2</sup>/4 * log(n/2)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar10"
+								value="3"  disabled="disabled" /> <alt>At T(n) <= c * n * log(n)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar10"
+								value="4"  checked="checked" disabled="disabled" /> <alt>At T(n) <= c * n<sup>2</sup> log(n)</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Antagelsen om at T(n/2)<=c*n<sup>2</sup>/4*log(n/2) for n/2 impliserer at vi forsøker å bevise at T(n)<=c*n<sup>2</sup>*log(n) for n. (Dette ser vi hvis vi erstatter n/2 med n.)</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst>Hvis du anvender master-teoremet på denne rekurrensen (se forelesning 5), hvilket tilfelle tilhører den? </tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar11"
+								value="1"  checked="checked" disabled="disabled" /> <alt>Case 1<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="2"  disabled="disabled" /> <alt>Case 2<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="3"  disabled="disabled" /> <alt>Case 3<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar11"
+								value="4"  disabled="disabled" /> <alt>Ingen av dem<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst>Hva blir kjøretiden? (valgfri fremgangsmåte)</tekst> <i>(2.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar12"
+								value="1"  disabled="disabled" /> <alt>&#920;(n)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="2"  disabled="disabled" /> <alt>&#920;(n log(n))<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="3"  disabled="disabled" /> <alt>&#920;(n<sup>2</sup>)<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar12"
+								value="4"  disabled="disabled" /> <alt>&#920;(n<sup>3</sup>)<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar12"
+								value="5"  checked="checked" disabled="disabled" /> <alt>&#920;(n<sup>4</sup>)<BR></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Masterteoremet case.1: a=7<sup>4</sup>, b=7, f(n)=n<sup>3</sup>).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 3d -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>d) <tekst>Hvis vi bytter ut n<sup>3</sup> med n<sup>5</sup> hvilket case får vi da hvis vi vil bruke Master-teoremet?</tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar13"
+								value="1"  disabled="disabled" /> <alt>Case 1<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="2"  disabled="disabled" /> <alt>Case 2<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar13"
+								value="3"  checked="checked" disabled="disabled" /> <alt>Case 3<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar13"
+								value="4"  disabled="disabled" /> <alt>Ingen av dem<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf/></td>
+</tr>
+</table><h2>Oppgave 4</h2><p><intro>Denne oppgaven dreier seg om variabelskifte. Merk at n<sup>1/2</sup> = <span style="white-space: nowrap; font-size:larger">
+&#8730;<span style="text-decoration:overline;">n</span>
+</span>
+.</intro></p>
+<!-- DELOPPGAVE 4a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Løs rekurrensen gitt ved: T(n) = T(n<sup>1/2</sup>) + 1</tekst> <i>(10 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar14"
+								value="1"  disabled="disabled" /> <alt>&#920; (lg n)<br/></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar14"
+								value="2"  checked="checked" disabled="disabled" /> <alt>&#920; (lg lg n)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="3"  disabled="disabled" /> <alt>&#920; (lg n lg lg n)<br/></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar14"
+								value="4"  disabled="disabled" /> <alt>&#920; (lg lg n lg lg n)<br/></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>La m = lg n og S(m) = T(2<sup>m</sup>). Dermed får vi: T(n) = T(2<sup>m/2</sup>) + 1, som igjen gir: S(m) = S(m/2) + 1. Denne løser vi enkelt med masterteoremet og får S(m) = &#920;(lg m). Setter vi dette inn i den opprinnelige rekurrensen finner vi løsningen: T(n) = T(2<sup>m</sup>) = S(m) = &#920;(lg m) = &#920; (lg lg n). </lf></td>
+</tr>
+</table><h2>Oppgave 5</h2><p><intro><p>Denne oppgaven handler om rekursjonstrær. Disse kan brukes som et hjelpemiddel for å gjette på en løsning til substitusjonsmetoden.
+Hver node i et rekursjonstre representerer en kostnad. I figuren under er det et eksempel for rekurrensen T(n) = 2T(n/2) + n, med T(1) = 1.<br /><br />
+<img src="http://www.idi.ntnu.no/~algdat/arkiv/ovingsfiler/rekursjonstre.png" alt="Eksempel på rekursjonstre" />
+</p>
+<p>
+Merk at rekursjonstreet har blitt tegnet trinnvis og at ikke hele er tegnet opp. Å tegne det trinnvis kan være lurt for å klare å se hvordan det fortsetter. I treet over ser vi at den interne kostnaden i hver node vil være n/2<sup>i</sup> der i er nivået noden befinner seg på (0-indeksert). 
+</p>
+<p>
+Nivået til løvnodene finner vi ved å løse n/2<sup>i</sup> = 1:<br />
+log<sub>2</sub> 2<sup>i</sup> = log<sub>2</sub> n<br />
+i log<sub>2</sub> 2 = log<sub>2</sub> n<br />
+i = log<sub>2</sub> n <br />
+Antallet noder på hvert nivå ser vi at er 2<sup>i</sup>. Antallet løvnoder er altså 2<sup>log<sub>2</sub> n</sup> = n
+</p>
+
+</intro></p>
+<!-- DELOPPGAVE 5a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Gitt rekurrensen T(n) = T(n/3) + T(n/2) + n, T(1) = 1. Hva er høyden til rekursjonstreet?</tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar15"
+								value="1"  disabled="disabled" /> <alt>&#920;(n*log(n))<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="2"  disabled="disabled" /> <alt>log<sub>3</sub>(n) + 1<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="3"  disabled="disabled" /> <alt>log<sub>6</sub>(n) + 1<BR></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar15"
+								value="4"  checked="checked" disabled="disabled" /> <alt>&#920;(log(n))<BR></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar15"
+								value="5"  disabled="disabled" /> <alt>log<sub>3/2</sub>(n) + 1</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>T(n/2)-leddet er det dominerende, slik at høyden vil være log<sub>2</sub>(n) + 1 (det krever flere delinger for å komme til 0 når du bare deler på 2 enn når du deler på 3).<br />I asymptotisk notasjon ser vi bort fra konstanter. log<sub>a</sub>(n) er bare forskjellig fra log<sub>b</sub>(n) med en konstant faktor, log<sub>a</sub>(n) = log<sub>b</sub>(n)/log<sub>b</sub>(a). I alternativene som ikke bruker asymptotisk notasjon, kan vi ikke se bort fra denne konstanten, så de er derfor feil alle sammen. 1-tallet ses bort fra i asymptotisk notasjon fordi det domineres av log n.</lf></td>
+</tr>
+</table><h2>Oppgave 6</h2><p><intro>Funksjonen gjoerNoe() har kjøretid &#920;(1).
+<pre>
+def f1(i):
+    gjoerNoe()
+    if i <= 1:
+        return
+    f1(i // 2)
+    f2(i - 2)
+
+def f2(i):
+    gjoerNoe()
+    if i <= 1:
+        return
+    f1(i // 2)
+</pre>
+
+</intro></p>
+<!-- DELOPPGAVE 6a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst>Hva en kjøretiden til <code>f1(n)</code>?</b> (Tips: Ikke prøv å regne ut nøyaktig.)</tekst> <i>(15 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar16"
+								value="1"  disabled="disabled" /> <alt>&#920;(log(log(n)))<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="2"  disabled="disabled" /> <alt>&#920;(log(n))<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="3"  disabled="disabled" /> <alt>&#920;(sqrt(n))<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar16"
+								value="4"  checked="checked" disabled="disabled" /> <alt>&#920;(n)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="5"  disabled="disabled" /> <alt>&#920;(n * log(n))<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="6"  disabled="disabled" /> <alt>&#920;(n * sqrt(n))<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="7"  disabled="disabled" /> <alt>&#920;(n<sup>2</sup>)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar16"
+								value="8"  disabled="disabled" /> <alt>Ingen av alternativene over er riktige.<br /></alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>T<sub>1</sub>(n) = &#920;(1) + T<sub>1</sub>(n/2) + T<sub>2</sub>(n-2), T<sub>1</sub>(1) = &#920;(1)<br />T<sub>2</sub>(n) = &#920;(1) + T<sub>1</sub>(n/2), T<sub>2</sub>(1) = &#920;(1)<br />
+<br />
+T<sub>1</sub>(n) = &#920;(1) + T<sub>1</sub>(n/2) + &#920;(1) + T<sub>1</sub>((n-2)/2)<br />
+= T<sub>1</sub>(n/2) + T<sub>1</sub>(n/2 - 1) + &#920;(1)<br />
+ca= 2 * T<sub>1</sub>(n/2) + &#920;(1)<br />
+<br />
+Ser at T<sub>1</sub>(n) = &#920;(n)
+</lf></td>
+</tr>
+</table><h2>Oppgave 7</h2><p><intro>I denne oppgaven skal du analysere kjøretiden til små funksjoner.funksjonen gjorNoe(n) har kjoretid &#920;(n).
+</intro></p>
+<!-- DELOPPGAVE 7a -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>a) <tekst><pre>def funksjon1(n):<br />    if n > 0:<br />        funksjon1(n-42) <br />        funksjon1(42)<br />    gjorNoe(42)</pre></tekst> <i>(5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar17"
+								value="1"  disabled="disabled" /> <alt>T(n)=O(1)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="2"  disabled="disabled" /> <alt>T(n)=O(n)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="3"  disabled="disabled" /> <alt>T(n)=O(log n)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="4"  disabled="disabled" /> <alt>T(n)=O(n*log n)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="5"  disabled="disabled" /> <alt>T(n)=O(n<sup>2</sup>)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="6"  disabled="disabled" /> <alt>T(n)=O(n<sup>3</sup>)<br /></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar17"
+								value="7"  disabled="disabled" /> <alt>T(n)=O(2<sup>n</sup>)<br /></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar17"
+								value="8"  checked="checked" disabled="disabled" /> <alt>den vil aldri stoppe</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>funksjon1(42) kaller funksjon1(42).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 7b -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>b) <tekst><pre>def funksjon2(n):<br />    gjorNoe(n)<br />    if n >= 1:<br />        funksjon2(n//3)<br />        funksjon2(2*n//3)<br /></pre></tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar18"
+								value="1"  disabled="disabled" /> <alt>T(n)=O(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="2"  disabled="disabled" /> <alt>T(n)=O(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="3"  disabled="disabled" /> <alt>T(n)=O(log n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar18"
+								value="4"  checked="checked" disabled="disabled" /> <alt>T(n)=O(n * log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="5"  disabled="disabled" /> <alt>T(n)=O(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="6"  disabled="disabled" /> <alt>T(n)=O(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="7"  disabled="disabled" /> <alt>T(n)=O(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar18"
+								value="8"  disabled="disabled" /> <alt>den vil aldri stoppe</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>Ut fra rekusrjonstreet ser man at det er cn på ethvert nivå og høyden til treet er &#920;(log(n)).</lf></td>
+</tr>
+</table><p><intro></intro></p>
+<!-- DELOPPGAVE 7c -->
+<p><img src="http://www.idi.ntnu.no/emner/tdt4120/images/answer_good.gif" width=23 height=23 alt="[ riktig ]"><b>c) <tekst><pre>def funksjon3(n):<br />    gjorNoe(n//6)<br />    if n > 0:<br />        funksjon3(n/2-2)<br />        funksjon3(n/2-3)<br /></pre></tekst> <i>(7.5 %)</i></b></p>
+
+					<span style="">
+						<input type="radio" name="svar19"
+								value="1"  disabled="disabled" /> <alt>T(n)=O(1)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="2"  disabled="disabled" /> <alt>T(n)=O(n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="3"  disabled="disabled" /> <alt>T(n)=O(log n)<br></alt>
+					</span>
+					<span style="color: green; background-color: inherit; ">
+						<input type="radio" name="svar19"
+								value="4"  checked="checked" disabled="disabled" /> <alt>T(n)=O(n*log n)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="5"  disabled="disabled" /> <alt>T(n)=O(n<sup>2</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="6"  disabled="disabled" /> <alt>T(n)=O(n<sup>3</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="7"  disabled="disabled" /> <alt>T(n)=O(2<sup>n</sup>)<br></alt>
+					</span>
+					<span style="">
+						<input type="radio" name="svar19"
+								value="8"  disabled="disabled" /> <alt>den vil aldri stoppe</alt>
+					</span></p>
+<table>
+<tr>
+    <td><i>Din&nbsp;kommentar:</i></td>
+    <td></td>
+</tr>
+<tr>
+    <td><i>LF-forklaring:</i></td>
+    <td><lf>For store verdier av n kan vi se bort fra -3 og -2 ,dermed kan dette tilnærmes til rekurrensen T(n)=2T(n/2)+&#920;(n) som har løsning &#920;(nlog(n)) etter case 2 av masterteoremet.</lf></td>
+</tr>
+</table></form>
+
+<!-- ****************
+       START FOOTER
+     **************** -->
+
+<br><br>
+      </td>
+      <td><img src="http://www.idi.ntnu.no/emner/tdt4120/images/pixel.gif"
+      width=30 height=1></td>
+      </tr></table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

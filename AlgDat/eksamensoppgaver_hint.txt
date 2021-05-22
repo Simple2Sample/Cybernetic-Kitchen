@@ -1,0 +1,173 @@
+1992, januar, 45011:
+1 - finne "majoritetstall"
+2 - Huffman-koder
+4 - finne antall ikke-kryssende veier (tilsvarer "Skumlehulen")
+5 - NP-kompletthet og pseudopolynomialitet
+
+1992, august, 45011:
+2 - spenntre med minimal lengste kant
+3 - analyse av p-veis fletting
+4 - søk etter største verdi i unimodal sekvens
+
+1993, januar, 45011:
+1ab - analyse
+2 - design og analyse av rekursiv BuildHeap
+4 - endring av kapasiteter i ferdigutregnet flytnettverk
+5 - søking i en liste etter tallpar med visse egenskaper; mest en trening i å lese kronglete oppgavetekster
+
+1993, august, 45011:
+1 - analyse og modifikasjon av rekursiv kode
+2 - Dijkstra og Bellman-Ford på negative sykler
+3 - bruke maks-flyt for å finne koblingsgrad
+
+1994, januar, 45011:
+1 - trening i masterteoremet (er det relevant?)
+2 - finne Theta(n)-algoritme for å sortere heltall opp til n3
+3 - mest sannsynlige vei (tilsvarer "Mumien")
+4a - maks-flyt ved hjelp av maks-sirkulasjon
+
+1994, august, 45011:
+1 - kodeanalyse
+4 - korteste vei når du har en bil med begrenset bensintank og ikke alle noder har bensinstasjoner
+
+1995, januar, 45011:
+1 - valg av sorteringsalgoritme i realtime-system
+2 - valg mellom quicksort som enten gjør insertion sort når listene er blitt små nok, eller som lar være å sortere små lister og gjør insertion sort til slutt
+5 - hvorfor sortering er Theta(n) når det finnes O(n)-algoritmer
+9 - billigste vei når man har en bil med begrenset bensintank og bensinstasjoner med forskjellige priser
+
+1995, august, 45011:
+1 - finne kjøretiden til ukjent subrutine som er del av en oppgitt rutine som skal ha en viss kjøretid
+3 - hvordan velge mellom counting sort og radix sort
+5 - maksflyt i et tre
+6 - DP-oppgave; vanskeligere vri på longest increasing subsequence 
+
+Januar 1996:
+1 - Rekursjon, regning på rekurrenser. Kjøring av algoritme med gitt input
+2 - Manipulere Ford-Fulkerson så den kan benyttes på et lignende problem
+3 - Grådighet og dynamisk programmering
+4 - NP-komplette problemer
+
+August 1996:
+1 - Generelt, god repetisjon
+2 - Avgjøre hvilken av Shortest-Path-algoritmene som skal brukes
+
+Desember 1996:
+3 - Modifisering av algoritmer
+6 - Gjenkjenne problem for å finne hvilken algoritme som kan brukes (0 - 1 Knapsack)
+
+August 1997:
+1 - Regning på O-notasjon; rekurrenser
+3 - Dynamisk programmering
+4 - Gjenkjenning av situasjon der lineærtidssortering bør brukes
+5 - Maks flyt
+
+Desember 1997:
+1 - Rekursiv algoritme og regning på rekurrenser
+3 - Modifisering av Floyd-Warshall for å tilpasse problem
+
+Desember 1998:
+2 - Forklare kjøretiden til sortering ved sammenligning
+   
+1999 August:
+2 - forklar en alg.  + bruk en kjent algoritme til å løse et nytt problem.
+3 - finn på noe selv, analyser kjøretid, økende vankselighetsgrad.
+4 - bruk kjente alg. til å løse et nytt problem
+5 - bruk kjente alg. til å løse et nytt problem, ikke så veldig spennende.
+6a,b,c - en må kunne slå opp i boken (a,b) kunne kjøre pseudokode fra den (c)
+
+1999 Desember:
+(1* - oppvarming)
+1i - Huffman
+2* - løs et problem selv, øende vanskelighetsgrad, veldig fin
+2e - gitt et knapsackproblem, skriv at det er et knapsackproblem og angi tidskompleksitet til løsningen  :) 
+4 - lengste stigende subsekvens, veldig fin oppgave. 4e - Algbio?
+5 - gitt et problem, hvilken alg kan brukes. (ikke så spennende egentlig)
+
+2000 Juli:
+1 - asymptotisk analyse
+3 - gitt et problem, hvilken algoritme kan brukes. Ganske enkel.
+4 - gitt et problem, hvilken algoritme kan brukes.
+5 - mangler oppgave, men mye kjøretidsanalyse. Skulle vært en veldig grei oppgave ut fra lf.
+
+2000 Desember:
+(1 - oppvarming)
+2 - lag en algoritme
+3 - anvender/endrer en kjent algoritme (Dijkstra )
+4 - algoritmeforståelse + anvendelser + kompleksitetsanalyse
+
+2001 august sif8010:
+-
+
+2001 desember sif8010:
+1 - regning på rekurensligninger
+3 - dynamisk programmering
+
+2002 juni mnfit115:
+1i - mangler løsningsforslag.
+
+2002 august sif8010:
+2 - kjøretid, og forståelse av heap vs binærtrær
+3 - kodeforståelse Longest Common Subsequence. ANBEFALT
+
+2002 desember sif8010:
+2 - finne algoritmer som løser problemer
+3 - diskutere "smart" sorteringsalgoritme, og gi kjøretid
+4 - liten og grei algoritmekonstruksjon
+5 - modellere et problem så det passer til en "optimal sirkulasjon"-algoritme
+
+August 2003
+1 - Fremgangsmåte på kjente algoritmer:
+    a - Topologisk Sortering, DAG Shortest Path
+    b - MST (Prim)
+    c - En-til-alle korteste vei (Dijkstra)
+    Kjøretid:
+    d - Kruskal med vri
+    e - Merging med vri
+2 - Algoritme oppgitt, kodeforståelse og kjøretid
+3 - Rekurrens, binære søketrær 
+
+Desember 2003
+2 - Algoritmekonstruksjon
+3 - Kodeanalyse
+4 - Maks Flyt (og tofarging).
+5 - Gjenkjenne et NP-komplett problem
+6 - Kodeforståelse
+
+Juni 2004
+3 - Asymptotisk notasjon og kjøretidsanalyse
+4 - Algoritmekonstruksjon
+
+August 2004
+-
+
+Desember 2004 (de to som ligger ute er faktisk nøyaktig det samme eksamenssettet)
+3 - Kjøretidsanalyse
+4 - Fargbarhet
+5 - Kjøretid på kjente algoritmer (O, Omega, Theta)
+6 - Algoritmekonstruksjon, Grådighet / Huffmann
+
+2005, juni:
+4 - Fin finne på selv-oppgave, modifisert MST og sortering
+
+2005, august
+1 - Multiple choice, f.eks første halvpart som en illustrasjon på denne oppgavetypen
+2 - NP-kompletthet, vri på eksisterende algoritme
+3 - Korteste vei, finne på selv, komme opp med praktisk eksempel
+
+2005, desember
+1 - Finne på algoritme selv, analyse
+2c - Argumentering for kjørtid for sortering
+3 - Finne på selv, snitt av tre vektorer, den jeg tok i forelesning (ikke sikkert alle var der), fint som rep.
+4 - Maks flyt, kjøre algoritme for hånd
+5 - Lineærprogrammering (gutt/jente-matcheproblem). Ikke snill oppgave, men kanskje kjekt som en advarsel om hva som kan komme
+
+2006, mai
+2 - Manuell kjøring av justert Huffmann
+3 - Regning på rekurrens for antall noder i k-tre
+4 - Algoritme for rangering, regner på rekurens
+5 - Konstruere algoritmer selv, kjøretidsanalyse
+
+2006, august
+2 - Kode Floyd-Warshall, MST, kjøring av Counting sort, maks flyt
+3 - Kjøretidsregning på gitt kode
